@@ -789,6 +789,67 @@ th.ef-th { padding:8px 8px 8px 12px; }
 .kpi-card-lbl { font-size:11px; color:#57534e; margin-top:5px; font-weight:600; }
 .kpi-card-period { font-size:10px; color:#d6d3d1; margin-top:1px; }
 
+/* ══ Medidores de Metas (v2) ══ */
+.mg-grid { display:grid; grid-template-columns:repeat(8,minmax(148px,1fr)); gap:10px; overflow-x:auto; padding:2px 2px 6px; }
+@media (max-width: 900px) { .mg-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+.mg-card { background:#fff; border:1px solid #ece9e5; border-radius:14px; padding:12px 12px 10px; display:flex; flex-direction:column; gap:6px; position:relative; transition:box-shadow .15s, transform .15s; }
+.mg-card:hover { box-shadow:0 6px 20px rgba(28,25,23,.07); transform:translateY(-1px); }
+.mg-card::after { content:''; position:absolute; left:12px; right:12px; top:0; height:3px; border-radius:0 0 3px 3px; background:var(--mg-cor,#e7e5e4); }
+.mg-head { display:flex; align-items:flex-start; justify-content:space-between; gap:6px; min-height:30px; }
+.mg-titulo { font-size:11px; font-weight:700; color:#44403c; line-height:1.25; letter-spacing:.1px; }
+.mg-tipo { flex-shrink:0; font-size:8.5px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#78716c; background:#f5f5f4; border-radius:5px; padding:2px 5px; cursor:help; }
+.mg-svg { width:100%; max-width:160px; margin:0 auto; display:block; overflow:visible; }
+.mg-svg .mg-prog { animation:mgProg .9s cubic-bezier(.22,1,.36,1) both; }
+.mg-svg .mg-needle { animation:mgNeedle .9s cubic-bezier(.22,1,.36,1) both; }
+@keyframes mgProg { from { stroke-dashoffset:100; } }
+@keyframes mgNeedle { from { transform:rotate(-90deg); } }
+.mg-valor { text-align:center; font-family:'Sora',sans-serif; font-size:17px; font-weight:800; color:#1c1917; letter-spacing:-.3px; line-height:1.1; margin-top:-4px; white-space:nowrap; }
+.mg-rodape { display:flex; flex-direction:column; gap:3px; border-top:1px dashed #ece9e5; padding-top:7px; }
+.mg-linha { display:flex; align-items:baseline; justify-content:space-between; gap:6px; min-width:0; }
+.mg-rot { font-size:8.5px; font-weight:700; color:#a8a29e; text-transform:uppercase; letter-spacing:.5px; flex-shrink:0; }
+.mg-num { font-family:'DM Mono',monospace; font-size:10.5px; font-weight:700; color:#44403c; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.mg-status { align-self:center; display:inline-flex; align-items:center; gap:4px; font-size:10px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; }
+.mg-status.ok   { color:#15803d; background:#dcfce7; }
+.mg-status.warn { color:#b45309; background:#fef3c7; }
+.mg-status.bad  { color:#b91c1c; background:#fee2e2; }
+.mg-status.vazio { color:#78716c; background:#f5f5f4; cursor:pointer; border:1px dashed #d6d3d1; }
+.mg-status.vazio:hover { color:var(--accent); border-color:var(--accent); background:#fff7ed; }
+
+/* ══ Contas a Pagar / Receber (v2) ══ */
+.cpr-wrap { grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+@media (max-width: 1100px) { .cpr-wrap { grid-template-columns:1fr; } }
+.cpr-panel { background:#fff; border:1px solid #ece9e5; border-radius:16px; padding:18px 18px 16px; display:flex; flex-direction:column; gap:14px; min-width:0; }
+.cpr-head { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.cpr-head-l { display:flex; align-items:center; gap:10px; }
+.cpr-ico { width:34px; height:34px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.cpr-ico svg { width:18px; height:18px; }
+.cpr-panel.pagar   .cpr-ico { background:#fef2f2; color:#dc2626; }
+.cpr-panel.receber .cpr-ico { background:#f0fdf4; color:#16a34a; }
+.cpr-titulo { font-size:14px; font-weight:800; color:#1c1917; letter-spacing:-.1px; }
+.cpr-sub { font-size:11px; color:#a8a29e; margin-top:1px; }
+.cpr-per { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#78716c; background:#f5f5f4; padding:4px 9px; border-radius:20px; white-space:nowrap; }
+.cpr-hero { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; padding:2px 2px 0; border-radius:10px; cursor:pointer; }
+.cpr-hero:hover .cpr-hero-val { color:var(--accent); }
+.cpr-hero-rot { font-size:10.5px; font-weight:700; color:#78716c; text-transform:uppercase; letter-spacing:.5px; }
+.cpr-hero-val { font-family:'Sora',sans-serif; font-size:26px; font-weight:800; color:#1c1917; letter-spacing:-.6px; line-height:1.15; white-space:nowrap; transition:color .15s; }
+.cpr-qtd { text-align:right; cursor:pointer; padding:6px 10px; border-radius:10px; background:#faf9f7; border:1px solid #f0eeeb; transition:.15s; }
+.cpr-qtd:hover { border-color:var(--accent); }
+.cpr-qtd b { display:block; font-family:'Sora',sans-serif; font-size:17px; font-weight:800; color:#1c1917; line-height:1.1; }
+.cpr-qtd span { font-size:10px; color:#78716c; font-weight:600; }
+.cpr-bar-top { display:flex; justify-content:space-between; font-size:11px; color:#57534e; font-weight:600; margin-bottom:6px; }
+.cpr-bar-top b { font-family:'DM Mono',monospace; }
+.cpr-bar { height:10px; border-radius:6px; background:#f5f5f4; overflow:hidden; display:flex; }
+.cpr-bar i { display:block; height:100%; transition:width .8s cubic-bezier(.22,1,.36,1); }
+.cpr-tiles { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+@media (max-width: 560px) { .cpr-tiles { grid-template-columns:1fr; } }
+.cpr-tile { border:1px solid #f0eeeb; background:#fcfbfa; border-radius:12px; padding:11px 12px; cursor:pointer; transition:.15s; min-width:0; position:relative; }
+.cpr-tile:hover { background:#fff; border-color:#d6d3d1; box-shadow:0 4px 14px rgba(28,25,23,.06); }
+.cpr-tile-rot { display:flex; align-items:center; gap:6px; font-size:10.5px; font-weight:700; color:#57534e; }
+.cpr-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.cpr-tile-val { font-family:'DM Mono',monospace; font-size:16px; font-weight:800; color:#1c1917; margin-top:6px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cpr-tile-nota { font-size:10px; color:#a8a29e; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cpr-tile-nota.alerta { color:#dc2626; font-weight:700; }
+
 
 
 /* ── GESTÃO DE USUÁRIOS ── */
@@ -3443,7 +3504,7 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
           <div class="card-title" style="margin:0;">🎯 Metas do Mês <span id="metas-gauge-periodo" style="font-weight:400;color:#a8a29e;font-size:12px;"></span></div>
           <button class="btn btn-secondary" style="padding:6px 14px;font-size:12px;" onclick="abrirModalMetasDre()">⚙️ Definir Metas</button>
         </div>
-        <div id="dash-metas-gauges" style="display:flex;flex-wrap:nowrap;gap:8px;overflow-x:auto;padding-bottom:4px;"></div>
+        <div id="dash-metas-gauges" class="mg-grid"></div>
       </div>
 
       <!-- KPIs r&#225;pidos (Contas a Pagar / Contas a Receber) -->
@@ -10363,28 +10424,81 @@ function renderDashboard() {
     'faltareceber': { titulo:'📌 Falta a Receber/Recebido', sub:relPeriodo, modo:'receber', tipo:'parc', itens:parcelasRecFiltradas },
   };
 
+  // ── Painéis Contas a Pagar / Contas a Receber (v2) ──
+  const _hojeISO = (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; })();
+  const _vencidoPag = _pfPag.filter(p => !p.isPago && p.venc && p.venc < _hojeISO);
+  const _vencidoRec = parcelasRecFiltradas.filter(p => !p.isRecebido && p.venc && p.venc < _hojeISO);
+  const totVencPag = _vencidoPag.reduce((s,p)=>s+p.valParc,0);
+  const totVencRec = _vencidoRec.reduce((s,p)=>s+p.valParc,0);
+  const periodoChip = (kpiAno || kpiMes) ? (kpiMes ? meses[parseInt(kpiMes)] + ' ' + (kpiAno||'') : kpiAno) : 'Todo período';
+  const _icoPagar   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg>';
+  const _icoReceber = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>';
+  const painelCPR = (o) => {
+    const base = o.aberto + o.quitado;
+    const pq = base > 0 ? (o.quitado / base) * 100 : 0;
+    const pa = base > 0 ? 100 - pq : 0;
+    return `
+    <div class="cpr-panel ${o.tipo}">
+      <div class="cpr-head">
+        <div class="cpr-head-l">
+          <div class="cpr-ico">${o.icone}</div>
+          <div><div class="cpr-titulo">${o.titulo}</div><div class="cpr-sub">${o.sub}</div></div>
+        </div>
+        <span class="cpr-per">${periodoChip}</span>
+      </div>
+      <div class="cpr-hero">
+        <div onclick="abrirRelatorioKPI('${o.relTotal}')" title="Clique para ver os lançamentos" style="min-width:0">
+          <div class="cpr-hero-rot">${o.rotTotal}</div>
+          <div class="cpr-hero-val">${fmtBRL(o.total)}</div>
+        </div>
+        <div class="cpr-qtd" onclick="abrirRelatorioKPI('${o.relQtd}')" title="Clique para ver os lançamentos">
+          <b>${o.qtd}</b><span>${o.rotQtd}</span>
+        </div>
+      </div>
+      <div>
+        <div class="cpr-bar-top">
+          <span>${o.rotQuitado}: <b style="color:${o.corQuitado}">${base>0?Math.round(pq):0}%</b></span>
+          <span>${o.rotAberto}: <b style="color:${o.corAberto}">${base>0?Math.round(pa):0}%</b></span>
+        </div>
+        <div class="cpr-bar" title="${o.rotQuitado} ${fmtBRL(o.quitado)} · ${o.rotAberto} ${fmtBRL(o.aberto)}">
+          <i style="width:${pq.toFixed(2)}%;background:${o.corQuitado}"></i>
+          <i style="width:${pa.toFixed(2)}%;background:${o.corAberto};opacity:.85"></i>
+        </div>
+      </div>
+      <div class="cpr-tiles">
+        <div class="cpr-tile" onclick="abrirRelatorioKPI('${o.relAberto}')" title="Clique para ver os lançamentos">
+          <div class="cpr-tile-rot"><span class="cpr-dot" style="background:${o.corAberto}"></span>${o.rotAberto}</div>
+          <div class="cpr-tile-val" style="color:${o.corAberto}">${fmtBRL(o.aberto)}</div>
+          <div class="cpr-tile-nota${o.vencido>0?' alerta':''}">${o.vencido>0 ? '⚠ '+fmtBRL(o.vencido)+' vencido' : 'Nada vencido'}</div>
+        </div>
+        <div class="cpr-tile" onclick="abrirRelatorioKPI('${o.relQuitado}')" title="Clique para ver os lançamentos">
+          <div class="cpr-tile-rot"><span class="cpr-dot" style="background:${o.corQuitado}"></span>${o.rotQuitado}</div>
+          <div class="cpr-tile-val" style="color:${o.corQuitado}">${fmtBRL(o.quitado)}</div>
+          <div class="cpr-tile-nota">Por vencimento</div>
+        </div>
+        <div class="cpr-tile" onclick="abrirRelatorioKPI('${o.relSoma}')" title="Clique para ver os lançamentos">
+          <div class="cpr-tile-rot"><span class="cpr-dot" style="background:#7e22ce"></span>${o.rotSoma}</div>
+          <div class="cpr-tile-val" style="color:#7e22ce">${fmtBRL(base)}</div>
+          <div class="cpr-tile-nota">${o.rotAberto} + ${o.rotQuitado}</div>
+        </div>
+      </div>
+    </div>`;
+  };
+
   document.getElementById('dash-kpis-top').innerHTML = `
-    <div class="card" style="grid-column:1/-1;padding:14px 16px;">
-      <div class="kpi-section-title pagar">📦 Contas a Pagar</div>
-      <div class="kpi-cards-grid">
-        ${kpiCard({ cor:'azul', icone:'🧾', valor:lancFiltrados.length, label:'Total de Compras', rel:'compras' })}
-        ${kpiCard({ cor:'azul', icone:'💵', valor:fmtBRL(totalComprado), valCor:'#ea580c', label:'Total Comprado', rel:'comprado' })}
-        ${kpiCard({ cor:'vermelho', icone:'⏳', valor:fmtBRL(totalAPagar), valCor:'#dc2626', label:'A Pagar', rel:'apagar' })}
-        ${kpiCard({ cor:'verde', icone:'✅', valor:fmtBRL(totalPago), valCor:'#16a34a', label:'Pago', rel:'pago' })}
-        ${kpiCard({ cor:'roxo', icone:'📌', valor:fmtBRL(totalAPagar + totalPago), valCor:'#7e22ce', label:'Falta a Pagar/Pago', rel:'faltapagar' })}
-      </div>
-      ${legendaFaltaPagar}
-    </div>
-    <div class="card" style="grid-column:1/-1;padding:14px 16px;">
-      <div class="kpi-section-title receber">💰 Contas a Receber</div>
-      <div class="kpi-cards-grid">
-        ${kpiCard({ cor:'azul', icone:'🧾', valor:lancRecFiltrados.length, label:'Total de Vendas', rel:'vendas' })}
-        ${kpiCard({ cor:'azul', icone:'💵', valor:fmtBRL(totalVendido), valCor:'#ea580c', label:'Total Vendido', rel:'vendido' })}
-        ${kpiCard({ cor:'laranja', icone:'⏳', valor:fmtBRL(totalAReceber), valCor:'#d97706', label:'A Receber', rel:'areceber' })}
-        ${kpiCard({ cor:'verde', icone:'✅', valor:fmtBRL(totalRecebido), valCor:'#16a34a', label:'Recebido', rel:'recebido' })}
-        ${kpiCard({ cor:'roxo', icone:'📌', valor:fmtBRL(totalAReceber + totalRecebido), valCor:'#7e22ce', label:'Falta a Receber/Recebido', rel:'faltareceber' })}
-      </div>
-      ${legendaFaltaReceber}
+    <div class="cpr-wrap">
+      ${painelCPR({ tipo:'pagar', icone:_icoPagar, titulo:'Contas a Pagar', sub:'Compras e despesas do período',
+        rotTotal:'Total Comprado', total:totalComprado, relTotal:'comprado',
+        qtd:lancFiltrados.length, rotQtd: lancFiltrados.length===1?'compra':'compras', relQtd:'compras',
+        rotAberto:'A Pagar', aberto:totalAPagar, relAberto:'apagar', corAberto:'#dc2626', vencido:totVencPag,
+        rotQuitado:'Pago', quitado:totalPago, relQuitado:'pago', corQuitado:'#16a34a',
+        rotSoma:'Falta a Pagar/Pago', relSoma:'faltapagar' })}
+      ${painelCPR({ tipo:'receber', icone:_icoReceber, titulo:'Contas a Receber', sub:'Vendas e recebimentos do período',
+        rotTotal:'Total Vendido', total:totalVendido, relTotal:'vendido',
+        qtd:lancRecFiltrados.length, rotQtd: lancRecFiltrados.length===1?'venda':'vendas', relQtd:'vendas',
+        rotAberto:'A Receber', aberto:totalAReceber, relAberto:'areceber', corAberto:'#d97706', vencido:totVencRec,
+        rotQuitado:'Recebido', quitado:totalRecebido, relQuitado:'recebido', corQuitado:'#16a34a',
+        rotSoma:'Falta a Receber/Recebido', relSoma:'faltareceber' })}
     </div>`;
   document.getElementById('dash-kpis-bottom').innerHTML = `
     <div class="card" style="grid-column:1/-1;padding:14px 16px;">
@@ -10651,34 +10765,112 @@ function calcularDreParaMetas(ano) {
   return out;
 }
 
-// ── Velocímetro (SVG, semicírculo com ponteiro) ──
-// valFrac e metaFrac em 0..1 (posição na escala). cor = cor do arco de progresso.
-function speedometerSVG(valFrac, metaFrac, cor, centerText) {
-  const R = 80, cx = 100, cy = 100;
+// ── Velocímetro (SVG v2: arco com faixas de desempenho, marcador de meta e ponteiro animado) ──
+// valFrac e metaFrac em 0..1 (posição na escala). cor = cor do status.
+// modo: 'piso' (quanto maior, melhor) ou 'teto' (quanto menor, melhor) — define as faixas coloridas.
+function speedometerSVG(valFrac, metaFrac, cor, modo) {
+  const R = 74, cx = 100, cy = 98;
   const cl = x => Math.max(0, Math.min(1, x));
-  const ang = f => Math.PI * (1 - cl(f)); // 0 => 180° (esq), 1 => 0° (dir)
+  const ang = f => Math.PI * (1 - cl(f));
   const pt = (f, rr) => [cx + rr * Math.cos(ang(f)), cy - rr * Math.sin(ang(f))];
-  const bg = `M ${cx - R} ${cy} A ${R} ${R} 0 0 1 ${cx + R} ${cy}`;
-  const [ex, ey] = pt(valFrac, R);
-  const prog = `M ${cx - R} ${cy} A ${R} ${R} 0 0 1 ${ex.toFixed(2)} ${ey.toFixed(2)}`;
-  const [nx, ny] = pt(valFrac, R - 12);
-  const [mx1, my1] = pt(metaFrac, R + 3);
-  const [mx2, my2] = pt(metaFrac, R - 20);
-  const metaTick = (metaFrac >= 0 && metaFrac <= 1)
-    ? `<line x1="${mx1.toFixed(1)}" y1="${my1.toFixed(1)}" x2="${mx2.toFixed(1)}" y2="${my2.toFixed(1)}" stroke="#1f2937" stroke-width="2.5" stroke-dasharray="2 2"/>`
-    : '';
-  return `<svg viewBox="0 0 200 118" style="width:100%;max-width:128px;display:block;">
-    <path d="${bg}" fill="none" stroke="#f5f4f2" stroke-width="14" stroke-linecap="round"/>
-    <path d="${prog}" fill="none" stroke="${cor}" stroke-width="14" stroke-linecap="round"/>
-    ${metaTick}
-    <line x1="${cx}" y1="${cy}" x2="${nx.toFixed(1)}" y2="${ny.toFixed(1)}" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
-    <circle cx="${cx}" cy="${cy}" r="6" fill="#1f2937"/>
-    <text x="${cx}" y="86" text-anchor="middle" font-size="24" font-weight="800" fill="#1f2937" font-family="Sora,sans-serif">${centerText}</text>
+  const arc = (f0, f1, rr) => {
+    const [x0,y0] = pt(f0, rr), [x1,y1] = pt(f1, rr);
+    return `M ${x0.toFixed(2)} ${y0.toFixed(2)} A ${rr} ${rr} 0 0 1 ${x1.toFixed(2)} ${y1.toFixed(2)}`;
+  };
+  const m = cl(metaFrac);
+  // Faixas de desempenho (anel externo fino)
+  const zonas = modo === 'teto'
+    ? [[0, m, '#86efac'], [m, Math.min(1, m*1.1), '#fcd34d'], [Math.min(1, m*1.1), 1, '#fca5a5']]
+    : [[0, m*0.8, '#fca5a5'], [m*0.8, m, '#fcd34d'], [m, 1, '#86efac']];
+  const zonasSvg = zonas.filter(z => z[1] - z[0] > 0.001)
+    .map(z => `<path d="${arc(z[0], z[1], R + 11)}" fill="none" stroke="${z[2]}" stroke-width="3.5"/>`).join('');
+  // Marcas da escala
+  let ticks = '';
+  for (let k = 0; k <= 20; k++) {
+    const f = k / 20, maior = k % 5 === 0;
+    const [a1,b1] = pt(f, R - 11), [a2,b2] = pt(f, R - (maior ? 18 : 14));
+    ticks += `<line x1="${a1.toFixed(1)}" y1="${b1.toFixed(1)}" x2="${a2.toFixed(1)}" y2="${b2.toFixed(1)}" stroke="${maior?'#a8a29e':'#d6d3d1'}" stroke-width="${maior?1.4:1}"/>`;
+  }
+  // Marcador da meta (triângulo por fora do arco + traço)
+  const [t1x,t1y] = pt(m, R + 16), aM = ang(m);
+  const px = Math.cos(aM + Math.PI/2) * 4.5, py = -Math.sin(aM + Math.PI/2) * 4.5;
+  const [t2x,t2y] = pt(m, R + 23);
+  const [l1x,l1y] = pt(m, R + 7), [l2x,l2y] = pt(m, R - 7);
+  const metaMk = `<line x1="${l1x.toFixed(1)}" y1="${l1y.toFixed(1)}" x2="${l2x.toFixed(1)}" y2="${l2y.toFixed(1)}" stroke="#1c1917" stroke-width="2.2" stroke-linecap="round"/>
+    <path d="M ${t1x.toFixed(1)} ${t1y.toFixed(1)} L ${(t2x+px).toFixed(1)} ${(t2y+py).toFixed(1)} L ${(t2x-px).toFixed(1)} ${(t2y-py).toFixed(1)} Z" fill="#1c1917"/>`;
+  const progPct = (cl(valFrac) * 100).toFixed(2);
+  const rot = (cl(valFrac) * 180 - 90).toFixed(1);
+  return `<svg class="mg-svg" viewBox="0 -2 200 108" role="img">
+    ${zonasSvg}
+    <path d="${arc(0,1,R)}" fill="none" stroke="#f1efec" stroke-width="12" stroke-linecap="round"/>
+    <path class="mg-prog" d="${arc(0,1,R)}" pathLength="100" fill="none" stroke="${cor}" stroke-width="12" stroke-linecap="round"
+      stroke-dasharray="100 100" style="stroke-dashoffset:${(100 - progPct).toFixed(2)}"/>
+    ${ticks}
+    ${metaMk}
+    <g transform="translate(${cx},${cy})">
+      <g class="mg-needle" style="transform:rotate(${rot}deg)">
+        <path d="M -3.2 0 L 0 -${R - 8} L 3.2 0 Z" fill="#1c1917"/>
+      </g>
+      <circle r="7" fill="#1c1917"/><circle r="2.6" fill="#fff"/>
+    </g>
   </svg>`;
 }
 
+// Medidor "apagado" para quando não há meta cadastrada
+function gaugeVazioSVG() {
+  const R = 74, cx = 100, cy = 98;
+  return `<svg class="mg-svg" viewBox="0 -2 200 108" role="img">
+    <path d="M ${cx-R} ${cy} A ${R} ${R} 0 0 1 ${cx+R} ${cy}" fill="none" stroke="#f1efec" stroke-width="12" stroke-linecap="round"/>
+    <path d="M ${cx-R-11} ${cy} A ${R+11} ${R+11} 0 0 1 ${cx+R+11} ${cy}" fill="none" stroke="#e7e5e4" stroke-width="2" stroke-dasharray="3 4"/>
+    <circle cx="${cx}" cy="${cy}" r="7" fill="#d6d3d1"/><circle cx="${cx}" cy="${cy}" r="2.6" fill="#fff"/>
+  </svg>`;
+}
+
+const fmtPctBR = v => (isFinite(v) ? v : 0).toFixed(1).replace('.', ',') + '%';
+
+// Monta um card de medidor completo.
+// o = { titulo, modo:'piso'|'teto', real, meta, max, fmtCentro, fmtNum }
+function montarCardMeta(o) {
+  const temMeta = o.meta > 0;
+  let cor = '#e7e5e4', status = '';
+  if (temMeta) {
+    if (o.modo === 'piso') {
+      const p = o.meta ? (o.real / o.meta) * 100 : 0;
+      const cls = p >= 100 ? 'ok' : (p >= 80 ? 'warn' : 'bad');
+      cor = cls === 'ok' ? '#16a34a' : (cls === 'warn' ? '#d97706' : '#dc2626');
+      status = cls === 'ok'
+        ? `<span class="mg-status ok">✓ Meta atingida · ${Math.round(p)}%</span>`
+        : `<span class="mg-status ${cls}">${Math.round(p)}% da meta</span>`;
+    } else {
+      const exc = o.meta ? ((o.real - o.meta) / o.meta) * 100 : 0;
+      const cls = o.real <= o.meta ? 'ok' : (exc <= 10 ? 'warn' : 'bad');
+      cor = cls === 'ok' ? '#16a34a' : (cls === 'warn' ? '#d97706' : '#dc2626');
+      status = cls === 'ok'
+        ? `<span class="mg-status ok">✓ Dentro do teto</span>`
+        : `<span class="mg-status ${cls}">▲ ${Math.round(exc)}% acima do teto</span>`;
+    }
+  } else {
+    status = `<span class="mg-status vazio" onclick="abrirModalMetasDre()" title="Cadastrar meta">+ Definir meta</span>`;
+  }
+  const dica = o.modo === 'piso' ? 'Meta é piso: quanto maior, melhor' : 'Meta é teto: quanto menor, melhor';
+  const svg = temMeta ? speedometerSVG(o.real / o.max, o.meta / o.max, cor, o.modo) : gaugeVazioSVG();
+  return `<div class="mg-card" style="--mg-cor:${temMeta ? cor : '#e7e5e4'}">
+    <div class="mg-head">
+      <div class="mg-titulo">${o.titulo}</div>
+      <span class="mg-tipo" title="${dica}">${o.modo === 'piso' ? '↑ Piso' : '↓ Teto'}</span>
+    </div>
+    ${svg}
+    <div class="mg-valor" style="${temMeta ? '' : 'color:#a8a29e'}">${o.fmtCentro(o.real)}</div>
+    ${status}
+    <div class="mg-rodape">
+      <div class="mg-linha"><span class="mg-rot">Realizado</span><span class="mg-num" title="${o.fmtNum(o.real)}">${o.fmtNum(o.real)}</span></div>
+      <div class="mg-linha"><span class="mg-rot">Meta</span><span class="mg-num">${temMeta ? o.fmtNum(o.meta) : '—'}</span></div>
+    </div>
+  </div>`;
+}
+
 // Renderiza os 8 velocímetros (Venda, CPV, Margem, Lucro + as 4 Despesas
-// do CPSV) numa única linha. Venda e as 4 Despesas do CPSV = valor em R$.
+// do CPSV). Venda e as 4 Despesas do CPSV = valor em R$.
 // CPV, Margem e Lucro = percentual do DRE (sobre a Receita).
 function renderMetasGauges() {
   const wrap = document.getElementById('dash-metas-gauges');
@@ -10692,8 +10884,7 @@ function renderMetasGauges() {
 
   const real = calcularDreParaMetas(ano);
   const metasAno = dreMetas[ano] || {};
-  // metaDe: valor-alvo em R$ — no modo "ano acumulado" SOMA as metas mensais
-  // (usado por Venda e pelas 4 Despesas do CPSV, agora também em R$).
+  // metaDe: valor-alvo em R$ — no modo "ano acumulado" SOMA as metas mensais.
   const metaDe = (metric) => {
     if (mes) { const mm = metasAno[mes]; return mm ? (parseFloat(mm[metric]) || 0) : 0; }
     let s = 0; for (let m=1;m<=12;m++){ const mm = metasAno[m]; if (mm) s += parseFloat(mm[metric])||0; } return s;
@@ -10706,9 +10897,7 @@ function renderMetasGauges() {
   const lucroReal = realDe(real.lucro);
   const pctDe = (v) => vendaReal ? (v / vendaReal) * 100 : 0; // % sobre a receita
 
-  // metaPctMedia: valor-alvo em % — no modo "ano acumulado" não faz sentido
-  // somar percentuais, então usamos a média das metas mensais preenchidas.
-  // (usado por CPV, Margem e Lucro, que continuam em %).
+  // metaPctMedia: valor-alvo em % — no modo "ano acumulado" usa a média das metas mensais preenchidas.
   const metaPctMedia = (metric) => {
     if (mes) { const mm = metasAno[mes]; return mm ? (parseFloat(mm[metric])||0) : 0; }
     let s=0, n=0; for (let m=1;m<=12;m++){ const mm=metasAno[m]; if (mm && mm[metric]!=null && mm[metric]!=='') { s+=parseFloat(mm[metric])||0; n++; } }
@@ -10716,86 +10905,34 @@ function renderMetasGauges() {
   };
 
   const cards = [];
+  const emR$  = { fmtCentro: v => fmtBRLCompacto(v), fmtNum: v => fmtBRL(v) };
+  const emPct = { fmtCentro: fmtPctBR, fmtNum: fmtPctBR };
 
-  // 1) VENDA — R$
-  {
-    const meta = metaDe('venda');
-    const cor = meta>0 ? (vendaReal>=meta ? '#16a34a' : '#d97706') : '#d6d3d1';
-    const max = Math.max(meta*1.25, vendaReal*1.1, 1);
-    const pctMeta = meta>0 ? (vendaReal/meta*100) : 0;
-    const centro = meta>0 ? `${Math.round(pctMeta)}%` : '—';
-    cards.push(cardGauge('Venda',
-      meta>0 ? speedometerSVG(vendaReal/max, meta/max, cor, centro) : gaugeVazio(),
-      fmtBRL(vendaReal), meta>0?('meta: '+fmtBRL(meta)):'meta: <span style="color:#d6d3d1">sem meta</span>',
-      'meta é piso (quanto maior, melhor)'));
-  }
-  // 2) CPV — % (menor é melhor; meta é teto)
-  {
-    const rpct = pctDe(cpvReal);
-    const meta = metaPctMedia('cpv');
-    const cor = meta>0 ? (rpct<=meta ? '#16a34a' : '#dc2626') : '#d6d3d1';
-    const max = Math.max(meta*1.6, rpct*1.15, 100);
-    cards.push(cardGauge('CPV (%)',
-      meta>0 ? speedometerSVG(rpct/max, meta/max, cor, rpct.toFixed(1)+'%') : gaugeVazioPct(rpct),
-      rpct.toFixed(1)+'%', meta>0?('meta: '+meta.toFixed(1)+'%'):'meta: <span style="color:#d6d3d1">sem meta</span>',
-      'meta é teto (quanto menor, melhor)'));
-  }
-  // 3) MARGEM DE CONTRIBUIÇÃO — %
-  {
-    const rpct = pctDe(mcReal);
-    const meta = metaPctMedia('mc');
-    const cor = meta>0 ? (rpct>=meta ? '#16a34a' : '#d97706') : '#d6d3d1';
-    const max = Math.max(meta*1.5, rpct*1.15, 100);
-    cards.push(cardGauge('Margem de Contribuição (%)',
-      meta>0 ? speedometerSVG(rpct/max, meta/max, cor, rpct.toFixed(1)+'%') : gaugeVazioPct(rpct),
-      rpct.toFixed(1)+'%', meta>0?('meta: '+meta.toFixed(1)+'%'):'meta: <span style="color:#d6d3d1">sem meta</span>',
-      'meta é piso (quanto maior, melhor)'));
-  }
-  // 4) LUCRO LÍQUIDO — %
-  {
-    const rpct = pctDe(lucroReal);
-    const meta = metaPctMedia('lucro');
-    const cor = meta>0 ? (rpct>=meta ? '#16a34a' : '#d97706') : '#d6d3d1';
-    const max = Math.max(meta*1.8, Math.abs(rpct)*1.2, 50);
-    cards.push(cardGauge('Lucro Líquido (%)',
-      meta>0 ? speedometerSVG(rpct/max, meta/max, cor, rpct.toFixed(1)+'%') : gaugeVazioPct(rpct),
-      rpct.toFixed(1)+'%', meta>0?('meta: '+meta.toFixed(1)+'%'):'meta: <span style="color:#d6d3d1">sem meta</span>',
-      'meta é piso (quanto maior, melhor)'));
-  }
-  // 5-8) DESPESAS DO CPSV (Produtos, Insumos, RH, Manutenções) — R$
-  // (menor é melhor; meta é teto — mesma ideia do CPV, só que em valor)
-  {
-    const cpsv = calcularDespesasCpsvParaMetas(ano);
+  // 1) VENDA — R$ (piso)
+  { const meta = metaDe('venda');
+    cards.push(montarCardMeta({ titulo:'Venda', modo:'piso', real:vendaReal, meta,
+      max:Math.max(meta*1.25, vendaReal*1.1, 1), ...emR$ })); }
+  // 2) CPV — % (teto)
+  { const r = pctDe(cpvReal), meta = metaPctMedia('cpv');
+    cards.push(montarCardMeta({ titulo:'CPV', modo:'teto', real:r, meta,
+      max:Math.max(meta*1.6, r*1.15, 1), ...emPct })); }
+  // 3) MARGEM DE CONTRIBUIÇÃO — % (piso)
+  { const r = pctDe(mcReal), meta = metaPctMedia('mc');
+    cards.push(montarCardMeta({ titulo:'Margem de Contribuição', modo:'piso', real:r, meta,
+      max:Math.max(meta*1.5, r*1.15, 1), ...emPct })); }
+  // 4) LUCRO LÍQUIDO — % (piso)
+  { const r = pctDe(lucroReal), meta = metaPctMedia('lucro');
+    cards.push(montarCardMeta({ titulo:'Lucro Líquido', modo:'piso', real:r, meta,
+      max:Math.max(meta*1.8, Math.abs(r)*1.2, 1), ...emPct })); }
+  // 5-8) DESPESAS DO CPSV — R$ (teto)
+  { const cpsv = calcularDespesasCpsvParaMetas(ano);
     CPSV_METRICAS.forEach(mt => {
-      const realVal = realDe(cpsv[mt.key]);
-      const meta = metaDe(mt.key);
-      const cor = meta>0 ? (realVal<=meta ? '#16a34a' : '#dc2626') : '#d6d3d1';
-      const max = Math.max(meta*1.6, realVal*1.15, 1);
-      cards.push(cardGauge(mt.titulo,
-        meta>0 ? speedometerSVG(realVal/max, meta/max, cor, fmtBRLCompacto(realVal)) : gaugeVazio(),
-        fmtBRL(realVal), meta>0?('meta: '+fmtBRL(meta)):'meta: <span style="color:#d6d3d1">sem meta</span>',
-        'meta é teto (quanto menor, melhor)'));
-    });
-  }
+      const r = realDe(cpsv[mt.key]), meta = metaDe(mt.key);
+      cards.push(montarCardMeta({ titulo: mt.titulo.replace(/\s*\(%\)\s*$/, ''), modo:'teto', real:r, meta,
+        max:Math.max(meta*1.6, r*1.15, 1), ...emR$ }));
+    }); }
 
   wrap.innerHTML = cards.join('');
-}
-function cardGauge(titulo, svg, valorTxt, metaTxt, dica) {
-  return `<div style="background:#fff;border:1px solid #f5f4f2;border-radius:12px;padding:8px 6px;text-align:center;flex:1 1 128px;min-width:118px;max-width:150px;">
-    <div style="font-size:10.5px;font-weight:700;color:#57534e;margin-bottom:2px;min-height:22px;display:flex;align-items:center;justify-content:center;line-height:1.15;">${titulo}</div>
-    <div style="display:flex;justify-content:center;">${svg}</div>
-    <div style="margin-top:2px;font-family:'DM Mono',monospace;font-size:11.5px;font-weight:800;color:#1f2937;">${valorTxt}</div>
-    <div style="font-size:9.5px;color:#a8a29e;margin-top:1px;">${metaTxt}</div>
-    <div style="font-size:8.5px;color:#a8a29e;margin-top:2px;line-height:1.2;">${dica}</div>
-  </div>`;
-}
-function gaugeVazio() {
-  return `<div style="width:100%;max-width:128px;height:72px;display:flex;align-items:center;justify-content:center;color:#d6d3d1;font-size:10px;">Sem meta</div>`;
-}
-function gaugeVazioPct(rpct) {
-  return `<div style="width:100%;max-width:128px;height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#a8a29e;">
-    <div style="font-size:18px;font-weight:800;color:#1f2937;font-family:Sora,sans-serif;">${rpct.toFixed(1)}%</div>
-    <div style="font-size:9px;color:#d6d3d1;">sem meta</div></div>`;
 }
 
 // ── Modal de cadastro de metas ──
