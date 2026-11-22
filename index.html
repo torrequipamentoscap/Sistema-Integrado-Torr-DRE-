@@ -1622,6 +1622,9 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
 }
 
 @media print { .mobile-topbar, .mobile-quickbar, .mobile-nav-backdrop { display:none !important; } }
+.dre-vis-btn{border:0;background:#fff;color:#78716c;font-size:12px;font-weight:600;padding:6px 12px;cursor:pointer;font-family:inherit;}
+.dre-vis-btn + .dre-vis-btn{border-left:1px solid #e7e5e4;}
+.dre-vis-btn.ativo{background:#ea580c;color:#fff;}
 </style>
 </head>
 <body>
@@ -1804,20 +1807,20 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
       </div>
 
       <!-- GRUPO: Débitos e Créditos -->
-      <div class="nav-group-header open" onclick="toggleNavGroup('grp-saldos',this)" style="margin-top:4px;">
+      <div class="nav-group-header open" onclick="toggleNavGroup('grp-saldos',this)" style="margin-top:4px;display:none">
         <span>Débitos e Créditos</span>
         <span class="nav-group-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>
       </div>
       <div class="nav-group-items" id="grp-saldos" style="max-height:400px">
-        <div class="nav-sub-item nav-debito" onclick="showPage('debitos-clientes')" id="nav-debitos-clientes">
+        <div class="nav-sub-item nav-debito" onclick="showPage('debitos-clientes')" id="nav-debitos-clientes" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
           Débitos com Clientes
         </div>
-        <div class="nav-sub-item nav-credito" onclick="showPage('creditos-fornecedores')" id="nav-creditos-fornecedores">
+        <div class="nav-sub-item nav-credito" onclick="showPage('creditos-fornecedores')" id="nav-creditos-fornecedores" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 12 0v1"/><line x1="16" y1="11" x2="22" y2="11"/><line x1="19" y1="8" x2="19" y2="14"/></svg>
           Créditos com Fornecedores
         </div>
-        <div class="nav-sub-item" onclick="showPage('balanco-forn-cli')" id="nav-balanco-forn-cli">
+        <div class="nav-sub-item" onclick="showPage('balanco-forn-cli')" id="nav-balanco-forn-cli" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-3 7a4 4 0 0 0 6 0z"/><path d="M19 7l-3 7a4 4 0 0 0 6 0z"/></svg>
           Balanço Fornecedor × Cliente
         </div>
@@ -1833,7 +1836,7 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
           Categorias
         </div>
-        <div class="nav-sub-item" onclick="showPage('dfc-lancamentos')" id="nav-dfc-lancamentos">
+        <div class="nav-sub-item" onclick="showPage('dfc-lancamentos')" id="nav-dfc-lancamentos" style="display:none">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
           Lançamentos
         </div>
@@ -2934,6 +2937,12 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
           <button class="btn btn-secondary btn-sm" onclick="dreMesesTodos(false)">Ocultar todos</button>
         </div>
         <div class="dre-opcoes-row">
+          <span style="font-size:11px;color:#a8a29e;font-weight:600;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;">Exibir:</span>
+          <span class="dre-vis-seg" style="display:inline-flex;border:1px solid #e7e5e4;border-radius:8px;overflow:hidden;">
+            <button type="button" id="dre-vis-grupos" class="dre-vis-btn" onclick="setDreMostrarCats(false)" title="Mostra só os grupos da DRE, sem as categorias">📁 Só grupos</button>
+            <button type="button" id="dre-vis-cats" class="dre-vis-btn ativo" onclick="setDreMostrarCats(true)" title="Mostra os grupos com as categorias abertas">📂 Com categorias</button>
+          </span>
+          <input type="checkbox" id="dre-mostrar-cats" checked style="display:none" />
           <span style="font-size:11px;color:#a8a29e;font-weight:600;text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;">Opções:</span>
           <label class="dre-mes-chip dre-opt-chip"><input type="checkbox" id="dre-somente-classificados" onchange="renderDre()" />Apenas lançamentos com Categoria definida</label>
           <label class="dre-mes-chip dre-opt-chip" title="Mostra/oculta a linha de digitação da Variação de Estoque. Os valores já digitados continuam somados ao CPV."><input type="checkbox" id="dre-mostrar-varest" checked onchange="salvarPrefsDre(); renderDre()" />Linha Variação de Estoque</label>
@@ -5214,6 +5223,8 @@ const BRAND_LOGO_DATA_URI = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAArwAA
 // ══════════════════════════════════════════
 // SISTEMA DE USUÁRIOS COM PERMISSÕES
 // ══════════════════════════════════════════
+// Telas ocultas nesta instalação (TORR). Para voltar a mostrar, tire da lista.
+const PAGINAS_OCULTAS = ['debitos-clientes', 'creditos-fornecedores', 'balanco-forn-cli', 'dfc-lancamentos'];
 const PAGES_CONFIG = [
   { id:'dashboard',         label:'Dashboard',           grupo:'geral'   },
   { id:'bancos',            label:'Bancos / Caixas',     grupo:'pagar'   },
@@ -5873,6 +5884,7 @@ function paginaVisivel(p) {
 let _paginaAtual = 'dashboard';
 
 function showPage(p) {
+  if (PAGINAS_OCULTAS.includes(p)) return;
   // Verificar permissão (exceto admin e páginas de administração)
   if (p !== 'usuarios' && p !== 'empresas' && p !== 'aprovacoes' && currentUser && currentUser.role !== 'admin') {
     const allowed = currentUser.pages || [];
@@ -11453,6 +11465,7 @@ function applyNavPermissions() {
     const match = onclick.match(/showPage\('([\w-]+)'\)/);
     if (!match) return;
     const pg = match[1];
+    if (PAGINAS_OCULTAS.includes(pg)) { item.style.display = 'none'; return; }
     if (pg === 'usuarios' || pg === 'empresas' || pg === 'aprovacoes') return;
     if (isAdmin) { item.style.display = ''; return; }
     item.style.display = (allowed.includes(pg) || (pg === 'cobranca' && allowed.includes('areceber'))) ? '' : 'none';
@@ -11510,8 +11523,6 @@ async function renderUsuariosAdmin() {
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">${buildPerms(pagReceber)}</div>
       <div style="font-size:10px;color:#a8a29e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">🧾 Controle de Cheques</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">${buildPerms(pagCheques)}</div>
-      <div style="font-size:10px;color:#a8a29e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">⚖️ Débitos e Créditos</div>
-      <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">${buildPerms(pagSaldos)}</div>
       <div style="font-size:10px;color:#a8a29e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">📊 DFC</div>
       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px">${buildPerms(pagDfc)}</div>
       <div style="font-size:10px;color:#a8a29e;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px">📈 DRE</div>
@@ -13327,6 +13338,153 @@ function renderDreGrupos() {
       </td></tr>`;
   }).join('');
 }
+// ══════════════════════════════════════════════════════════════════
+// ESTRUTURA PADRÃO TORR — DRE, categorias e fornecedores/despesas
+// ------------------------------------------------------------------
+// Roda UMA vez (marca em config: torr_estrutura_v1), logo após o login de
+// um usuário. Não apaga nada: só cria o que falta e coloca os grupos da
+// DRE na ordem abaixo. Os percentuais (%) são sempre calculados sobre a
+// Receita Operacional Bruta (ROB), que é o 1º grupo de Entrada.
+// O Ponto de Equilíbrio é calculado sozinho no fim da DRE (usa os grupos
+// marcados como Fixo/Variável). Depois disso tudo continua editável.
+// ══════════════════════════════════════════════════════════════════
+const TORR_ESTRUTURA_FLAG = 'torr_estrutura_v1';
+const TORR_DRE = [
+  { nome: "Receita Operacional Bruta (ROB)", tipo: 'entrada', cats: ["Venda de Produto", "Venda de Serviço", "Receita com Frete", "Industrialização Efetuada", "Venda de Produto (HFORT)", "Industrialização Efetuada (HFORT)"], alias: ["receitas operacional bruta rob"] },
+  { nome: "Receitas Não Operacionais", tipo: 'entrada', cats: ["Venda de Ativos", "Venda de Produto (Não Operacional)", "Venda de Serviço (Não Operacional)", "Reembolso Marmitas", "Dinheiro Emprestado", "Venda de Sucatas/Sobras"] },
+  { nome: "Impostos", tipo: 'saida', classe: 'variavel', cats: ["Simples Nacional", "DARF", "ICMS DeSTDA", "ISS", "ICMS", "DIFAL – Vendas Não Contribuinte"] },
+  { nome: "Impostos (%)", tipo: 'percentual', alias: ["impostos %"] },
+  { nome: "Receita Operacional Líquida (ROL)", tipo: 'subtotal' },
+  { nome: "Variação do Estoque", tipo: 'saida' },
+  { nome: "Custo do Produto Vendido (CPV)", tipo: 'saida', classe: 'variavel', cats: ["Despesas com Produto", "Despesas Insumos", "Despesas com Materiais e Equipamento", "Despesas com RH"] },
+  { nome: "Custo do Produto Vendido (CPV) (%)", tipo: 'percentual', alias: ["custo do produto vendido cpv%"] },
+  { nome: "Despesas com Comissão", tipo: 'saida', classe: 'variavel', cats: ["Comissão de Venda Interna", "Comissão de Venda Externa"], alias: ["despesas comissao"] },
+  { nome: "Despesas com Comissão (%)", tipo: 'percentual' },
+  { nome: "Despesas com Frete", tipo: 'saida', classe: 'variavel', cats: ["Embalagens", "Despesa com Frete de Vendas", "Despesa com Frete Garantias"], alias: ["despesas frete de venda"] },
+  { nome: "Despesas com Frete (%)", tipo: 'percentual' },
+  { nome: "Margem de Contribuição", tipo: 'subtotal' },
+  { nome: "Margem de Contribuição (%)", tipo: 'percentual' },
+  { nome: "Despesas Fixas Adm", tipo: 'saida', classe: 'fixo', cats: ["Despesas Administrativas"], alias: ["despesas administrativas", "despesas adm"] },
+  { nome: "Despesas Fixas Adm (%)", tipo: 'percentual' },
+  { nome: "Despesas Fixas Comerciais", tipo: 'saida', classe: 'fixo', cats: ["Pedágios", "Alimentação", "Viagens - Pedágio", "Viagens - Hospedagem", "Viagens - Alimentação", "Viagens - Combustível", "Salário"] },
+  { nome: "Despesas Fixas Comerciais (%)", tipo: 'percentual' },
+  { nome: "EBITDA / Resultado Operacional", tipo: 'subtotal' },
+  { nome: "EBITDA / Resultado Operacional (%)", tipo: 'percentual' },
+  { nome: "Resultado Financeiro", tipo: 'parcial' },
+  { nome: "Resultado Financeiro (%)", tipo: 'percentual' },
+  { nome: "Receitas Financeiras", tipo: 'entrada', cats: ["Receitas Financeiras"] },
+  { nome: "Despesas Financeiras", tipo: 'saida', cats: ["Despesas Financeiras"] },
+  { nome: "Resultado Antes do IR (LAIR)", tipo: 'subtotal' },
+  { nome: "Resultado Antes do IR (LAIR) (%)", tipo: 'percentual' },
+  { nome: "Amortização de Empréstimos", tipo: 'saida', cats: ["Empréstimo Aporte Capital", "Anderson (MT09)"] },
+  { nome: "Amortização de Empréstimos (%)", tipo: 'percentual' },
+  { nome: "Despesas Pós Resultados", tipo: 'saida', cats: ["Pós Resultado", "Divisão de Resultados"] },
+  { nome: "Despesas Pós Resultados (%)", tipo: 'percentual' },
+  { nome: "Investimentos", tipo: 'saida', cats: ["Equipamentos Área Administrativa", "Máquinas e Equipamentos", "Equipamentos de Informática", "Investimento de Infraestrutura", "Móveis e Utensílios", "Equipamentos Área Comercial"], alias: ["investimento"] },
+  { nome: "Investimentos (%)", tipo: 'percentual' },
+  { nome: "Captação de Recursos (Empréstimos)", tipo: 'entrada' },
+  { nome: "Geração de Caixa Após as Dívidas", tipo: 'subtotal', alias: ["geracao de caixas apos as dividas"] },
+  { nome: "Geração de Caixa Após as Dívidas (%)", tipo: 'percentual', alias: ["geracao de caixas apos as dividas %"] }
+];
+const TORR_FORNECEDORES = ["Cotas/Aplicações", "IOF", "Juros", "Taxas Link Pagamento Asaas", "Anuidades", "Seguros", "Tarifa Boleto", "Acerto de Saldo (-)", "Tarifa PIX", "Tarifa Manutenção Conta", "Tarifa Saque Terminal", "Custas de Protesto", "Tarifa de Protesto", "IRRF", "Tarifa Sustação Protesto", "Taxa Emissão de Cartão", "Weld Vision", "Casa dos Parafusos", "Marvitubos", "Indumass", "Indufix", "Beto Tintas", "Sucatas Indaial", "Smierveda", "Heer", "Aços América", "Mercosul", "Volnei Marutti (MVM)", "Piracicaba", "Despesa com Frete de Compras", "Komatsu", "Ilha Tintas", "JP Usinagem (SNF)", "Açovisa", "Sucatas Anízio (SNF)", "Acrinato (SNF)", "MMC Vedações", "Edemir Usinagem (SNF)", "Backes Usinagem (SNF)", "HCF Hersing", "Kiferro", "MVM Soluções Industriais", "Sucatas Indaial (SNF)", "Jatpress (SNF)", "Parafusos Bertoldi", "H Soldas", "Verion Óleo-Hidráulica", "Polistamp", "JA Chapas (SNF)", "Krambeck Auto Peças", "MV Manutenção", "Açonorte", "WS Comércio de Auto Peças", "Inox do Brasil", "Alfamaq", "Alfa Ferro e Aço", "Indacryl", "Adifer Ferramentas", "AL Comércio de Oxigênio", "Cicampo", "Artemat (Concreal) (SNF)", "HPL", "Indagas", "Ferramentas Gerais", "Gebhardt (SNF)", "Fortte Comercial", "Coremma", "Leandro Prada Representações", "Estopas", "Adesivos/Plaquetinhas Produtos", "Mazzuco Assessoria", "Hidrotec Sul", "Start Ferramentas", "Seguro Equipamentos", "Adam Distribuidora", "Instrumentos de Medição", "MW Máquinas", "Combustível", "HS Automação", "Oficina Mecânica/Borracharia", "Lavação", "Allservice", "Mercado Livre", "Dimarol", "Manutenção Compressor", "Busnardo Comercial (Plasmasul)", "Fabrício dos Santos Reinert - ME", "INSS", "Salários", "Encargos Sociais", "Alelo", "Vale", "Exames", "Férias", "Provisão 13 Salário/Férias", "Rescisão", "Marmitas/Alimentação", "Seguro de Vida", "Medicina do Trabalho", "Cursos e Treinamentos", "Prêmio Frequência", "Horas Extras", "EPI", "Brindes / Datas Comemorativas", "Pensão Alimentícia", "Uniformes", "Bonificação Anual", "Café Funcionários", "Produtos de Limpeza e Higiene", "Aluguel/Energia Galpão", "Internet/Telefonia", "Papel", "Cartório", "Propagandas/Marketing", "Alvarás", "Contabilidade", "Consultoria", "Alimentação em Viagens", "Prolabore", "CASAN", "Seguro de Veículos", "Sistemas / Softwares / Assinaturas", "Materiais Organização/Papelaria", "Informática / Periféricos", "Serviços Ambientais", "Tinta Impressora", "Bem-Estar / Infraestrutura / Utilidades", "Segurança / Vigilância", "Certificado Digital", "Manutenção Galpão", "Doações/Apoio Social", "Frete Devolução Fornecedor", "IPTU", "Serviços de Limpeza", "IPVA/Licenciamento Anual", "Pedágios", "Taxas e Contribuições Sindicais", "Registro de Marca", "Auxílios e Ajuda de Custo"];
+
+let _torrEstruturaRodando = false;
+async function aplicarEstruturaTorr() {
+  if (_torrEstruturaRodando) return false;
+  let flag;
+  try { flag = await sbFetch('config', 'GET', null, `?key=eq.${TORR_ESTRUTURA_FLAG}&limit=1`); } catch(e) { return false; }
+  if (!Array.isArray(flag) || flag.length) return false;   // erro de leitura ou já aplicado
+  _torrEstruturaRodando = true;
+  let falhas = 0;
+  try {
+    // 1) Grupos da DRE, na ordem
+    const porChave = new Map();
+    db.dre_grupos.forEach(g => porChave.set(_chaveNomeDre(g.nome), g));
+    const usados = new Set(), novosGrupos = [], grupoDoItem = [];
+    for (let i = 0; i < TORR_DRE.length; i++) {
+      const it = TORR_DRE[i], ordem = i + 1;
+      const chaves = [_chaveNomeDre(it.nome), ...(it.alias || []).map(_chaveNomeDre)];
+      let g = null;
+      for (const k of chaves) { const x = porChave.get(k); if (x && !usados.has(x.id)) { g = x; break; } }
+      if (g) {
+        usados.add(g.id);
+        const patch = {};
+        if (g.nome !== it.nome) patch.nome = it.nome;
+        if (g.tipo !== it.tipo) patch.tipo = it.tipo;
+        if (g.ordem !== ordem) patch.ordem = ordem;
+        if (Object.keys(patch).length) {
+          if (await sbFetch('dre_grupos', 'PATCH', patch, `?id=eq.${g.id}`)) Object.assign(g, patch); else falhas++;
+        }
+      } else {
+        g = { id: uid(), nome: it.nome, tipo: it.tipo, ordem, obs: '' };
+        novosGrupos.push(g);
+      }
+      grupoDoItem[i] = g;
+    }
+    if (novosGrupos.length) {
+      if (await sbFetch('dre_grupos', 'POST', novosGrupos)) db.dre_grupos.push(...novosGrupos);
+      else { falhas++; novosGrupos.forEach(g => { const i = grupoDoItem.indexOf(g); if (i >= 0) grupoDoItem[i] = null; }); }
+    }
+    // Grupos antigos que não estão na lista vão para o fim (nada é apagado)
+    let extra = TORR_DRE.length;
+    for (const g of [...db.dre_grupos].sort((a, b) => (a.ordem || 0) - (b.ordem || 0))) {
+      if (grupoDoItem.includes(g)) continue;
+      const ordem = ++extra;
+      if (g.ordem === ordem) continue;
+      if (await sbFetch('dre_grupos', 'PATCH', { ordem }, `?id=eq.${g.id}`)) g.ordem = ordem; else falhas++;
+    }
+    db.dre_grupos.sort((a, b) => (a.ordem || 0) - (b.ordem || 0));
+
+    // 2) Classe Fixo/Variável (Ponto de Equilíbrio)
+    if (typeof carregarDreGrupoClasses === 'function') await carregarDreGrupoClasses();
+    let mudouClasse = false;
+    TORR_DRE.forEach((it, i) => {
+      const g = grupoDoItem[i];
+      if (g && it.classe && dreGrupoClasses[g.id] !== it.classe) { dreGrupoClasses[g.id] = it.classe; mudouClasse = true; }
+    });
+    if (mudouClasse) await salvarDreGrupoClasses();
+
+    // 3) Categorias de cada grupo
+    const novasCats = [];
+    TORR_DRE.forEach((it, i) => {
+      const g = grupoDoItem[i];
+      if (!g || !it.cats) return;
+      it.cats.forEach(nome => {
+        const k = _chaveCatDre(nome);
+        if (db.dfc_cats.some(c => c.grupo === g.id && _chaveCatDre(c.nome) === k)) return;
+        if (novasCats.some(c => c.grupo === g.id && _chaveCatDre(c.nome) === k)) return;
+        novasCats.push({ id: uid(), nome, grupo: g.id, tipo: g.tipo, obs: '' });
+      });
+    });
+    if (novasCats.length) {
+      if (await sbFetch('dfc_categorias', 'POST', novasCats)) db.dfc_cats.push(...novasCats); else falhas++;
+    }
+
+    // 4) Fornecedores / despesas
+    const existentes = new Set((db.fornecedores || []).map(f => normText(f.nome)));
+    const novosForn = [];
+    TORR_FORNECEDORES.forEach(nome => {
+      const k = normText(nome);
+      if (existentes.has(k)) return;
+      existentes.add(k);
+      novosForn.push({ id: uid(), nome, cnpj: '', contato: '', tel: '', email: '', cat: '', obs: '' });
+    });
+    if (novosForn.length) {
+      if (await sbFetch('fornecedores', 'POST', novosForn)) db.fornecedores.push(...novosForn); else falhas++;
+    }
+
+    if (!falhas) await sbFetch('config', 'POST', { id: uid(), key: TORR_ESTRUTURA_FLAG, value: new Date().toISOString() });
+    else console.warn('[TORR] Estrutura padrão com ' + falhas + ' falha(s); será tentada de novo no próximo acesso.' + sbErroDetalhe());
+
+    bumpDbVer();
+    const chamar = nome => { if (typeof window[nome] === 'function') { try { window[nome](); } catch(e) {} } };
+    ['renderDreGrupos', 'populateDreGrupoSelects', 'renderDfcCategorias', 'populateDfcCatSelects',
+     'populateDfcCatProdSelects', 'popularCategoriasAnalise', 'popularFiltrosGrupoCategoriaTodos',
+     'populateFornSelects', 'renderFornecedores', '_rerenderDemonstrativoAtual'].forEach(chamar);
+    return true;
+  } finally { _torrEstruturaRodando = false; }
+}
+
 // ── NOMENCLATURA DA DRE (ajuste único) ─────────────────────────────
 // Os nomes das linhas da DRE são os Grupos cadastrados (tabela dre_grupos).
 // Este ajuste roda UMA vez (marcado em config: dre_nomenclatura_v2):
@@ -13977,6 +14135,22 @@ async function setVarEstoque(mes, rawValor) {
 
 // Mostra/oculta as linhas de categoria de um grupo do DRE (clique na setinha
 // ao lado do nome do grupo). Preferência não é salva — reabre expandido.
+// Exibir: "Só grupos" (categorias recolhidas) ou "Com categorias" (abertas).
+// Cada grupo ainda pode ser aberto/fechado no ▸/▾. A escolha fica salva.
+function dreMostrarCats() { const el = document.getElementById('dre-mostrar-cats'); return !el || el.checked; }
+function _dreAtualizarBotoesVis() {
+  const on = dreMostrarCats();
+  const a = document.getElementById('dre-vis-grupos'), b = document.getElementById('dre-vis-cats');
+  if (a) a.classList.toggle('ativo', !on);
+  if (b) b.classList.toggle('ativo', on);
+}
+function setDreMostrarCats(mostrar) {
+  const el = document.getElementById('dre-mostrar-cats'); if (el) el.checked = !!mostrar;
+  _dreAtualizarBotoesVis();
+  salvarPrefsDre();
+  document.querySelectorAll('#dre-tabela-wrap tr.dre-row-cat').forEach(r => { r.style.display = mostrar ? '' : 'none'; });
+  document.querySelectorAll('#dre-tabela-wrap .dre-cat-toggle').forEach(t => { t.textContent = mostrar ? '▾' : '▸'; });
+}
 function toggleDreCategorias(grupoId, el) {
   const rows = document.querySelectorAll('tr[data-cat-grupo="' + grupoId + '"]');
   if (!rows.length) return;
@@ -13996,12 +14170,15 @@ function carregarPrefsDre() {
   set('dre-mostrar-varest', pr.varEstoque);
   set('dre-mostrar-acumulado', pr.acumulado);
   set('dre-emprest-venc', pr.emprestVenc);
+  set('dre-mostrar-cats', pr.mostrarCats);
+  _dreAtualizarBotoesVis();
 }
 function salvarPrefsDre() {
   const get = id => { const el = document.getElementById(id); return el ? el.checked : undefined; };
   try {
     localStorage.setItem(DRE_PREFS_KEY, JSON.stringify({
-      varEstoque: get('dre-mostrar-varest'), acumulado: get('dre-mostrar-acumulado'), emprestVenc: get('dre-emprest-venc')
+      varEstoque: get('dre-mostrar-varest'), acumulado: get('dre-mostrar-acumulado'), emprestVenc: get('dre-emprest-venc'),
+      mostrarCats: get('dre-mostrar-cats')
     }));
   } catch(e) {}
 }
@@ -14365,7 +14542,7 @@ function renderDre() {
       : `<td class="dfc-col-total">${fmtDreVal(totalVal)}</td>`;
     const temCats = clicavel && db.dfc_cats.some(c => c.grupo === g.id);
     const nomeCell = temCats
-      ? `<span class="dre-cat-toggle" onclick="toggleDreCategorias('${g.id}', this)" title="Mostrar/ocultar categorias" style="cursor:pointer;display:inline-block;width:13px;color:#a8a29e;user-select:none;">▾</span>${g.nome}`
+      ? `<span class="dre-cat-toggle" onclick="toggleDreCategorias('${g.id}', this)" title="Mostrar/ocultar categorias" style="cursor:pointer;display:inline-block;width:13px;color:#a8a29e;user-select:none;">${dreMostrarCats() ? '▾' : '▸'}</span>${g.nome}`
       : g.nome;
     return `<tr class="${cls}"><td>${nomeCell}</td>${cells}${totalCell}</tr>`;
   };
@@ -14386,7 +14563,7 @@ function renderDre() {
       ? `<td class="dfc-col-total dre-cell-click" onclick="abrirDetalheDreGrupo('${parentG.id}','total','${c.id}')" title="Ver lançamentos desta categoria">${fmtDreVal(totalVal)}</td>`
       : `<td class="dfc-col-total">${fmtDreVal(totalVal)}</td>`;
     const tagVenc = catsEmprest.has(c.id) ? '<span class="dre-tag-venc" title="Valores pelo vencimento das parcelas">por vencimento</span>' : '';
-    return `<tr class="dre-row-cat" data-cat-grupo="${parentG.id}"><td style="padding-left:26px;font-weight:400;color:#78716c;font-size:10.5px;">↳ ${c.nome}${tagVenc}</td>${cells}${totalCell}</tr>`;
+    return `<tr class="dre-row-cat" data-cat-grupo="${parentG.id}"${dreMostrarCats() ? '' : ' style="display:none"'}><td style="padding-left:26px;font-weight:400;color:#78716c;font-size:10.5px;">↳ ${c.nome}${tagVenc}</td>${cells}${totalCell}</tr>`;
   };
 
   // Linha "(Sem categoria)" — sobra entre o total do grupo e a soma das
@@ -14409,7 +14586,7 @@ function renderDre() {
     const totalCell = Math.abs(totalVal) >= 0.005
       ? `<td class="dfc-col-total dre-cell-click" onclick="abrirDetalheDreGrupo('${parentG.id}','total','__sem_categoria__')" title="Ver lançamentos sem categoria">${fmtDreVal(totalVal)}</td>`
       : `<td class="dfc-col-total">${fmtDreVal(totalVal)}</td>`;
-    return `<tr class="dre-row-cat" data-cat-grupo="${parentG.id}"><td style="padding-left:26px;font-weight:400;font-style:italic;color:#a8a29e;font-size:10.5px;">↳ (Sem categoria)</td>${cells}${totalCell}</tr>`;
+    return `<tr class="dre-row-cat" data-cat-grupo="${parentG.id}"${dreMostrarCats() ? '' : ' style="display:none"'}><td style="padding-left:26px;font-weight:400;font-style:italic;color:#a8a29e;font-size:10.5px;">↳ (Sem categoria)</td>${cells}${totalCell}</tr>`;
   };
   const linhaPercentual = (g) => {
     const cells = mesesVisiveis.map(mes => `<td>${fmtDrePercent(linhaCalc[g.id][mes])}</td>`).join('');
@@ -14936,7 +15113,7 @@ function imprimirAnaliseCategoria() {
 
   const fullHtml = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>' + titulo + ' — C@P Consultoria</title>'
     + '<style>' + css + '</style></head><body>'
-    + '<div class="header"><div><div class="logo">C@P</div><div class="titulo">' + titulo + '</div></div>'
+    + '<div class="header"><div>' + '<img src="' + BRAND_LOGO_DATA_URI + '" alt="C@P Consultoria" style="height:52px;width:auto;display:block;margin-bottom:6px" />' + '<div class="titulo">' + titulo + '</div></div>'
     + '<div class="meta"><div>Emitido em: ' + dataHoje + '</div><div>Sistema de Gestão C@P Consultoria</div></div></div>'
     + tableHtml
     + '<div class="footer">C@P Consultoria — Sistema de Gestão de Compras &middot; Gerado em ' + dataHoje + '</div>'
@@ -15479,7 +15656,7 @@ function gerarPdfPpr(sem) {
   const obsLivre = (cfg.observacoes || '').trim()
     ? `<div class="box"><div class="box-t">Observações</div>${_pprEsc(cfg.observacoes).replace(/\n/g, '<br>')}</div>` : '';
   const assinaturas = r.acionistas.map(a => `<div class="ass"><div class="ass-l"></div>${_pprEsc(a.nome)}</div>`).join('');
-  const cabecalho = (titulo) => `<div class="header"><div><div class="logo">${_pprEsc(empresa)}</div><div class="titulo">${titulo}</div>
+  const cabecalho = (titulo) => `<div class="header"><div><img src="${BRAND_LOGO_DATA_URI}" alt="C@P Consultoria" style="height:52px;width:auto;display:block;margin-bottom:4px" /><div style="font-size:12px;font-weight:700;color:#44403c">${_pprEsc(empresa)}</div><div class="titulo">${titulo}</div>
       <div class="sub">${semTxt} de ${ano}</div></div>
       <div class="meta"><div>Emitido em: ${emitido}</div><div>Sistema de Gestão C@P Consultoria</div></div></div>`;
   const avisoParcial = parcial ? '<div class="aviso">⚠️ Semestre ainda em andamento: valores <b>parciais</b>, calculados com os lançamentos registrados até a emissão.</div>' : '';
@@ -15620,7 +15797,8 @@ const LOGO_EMPRESA_CAIXA = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGAAAA
 function bancoIconeHtml(b, tam) {
   const txt = ((b && b.banco) || '') + ' ' + ((b && b.nome) || '');
   const ehDinheiro = (b && b.tipo === 'Caixa Física') || /dinheiro|caixa\s*f[ií]sic/i.test(txt);
-  const logo = ehDinheiro ? { img: LOGO_EMPRESA_CAIXA } : BANCO_LOGOS.find(l => l.re.test(txt));
+  if (ehDinheiro) return BANCO_ICONS['Caixa Física'] || '💵';
+  const logo = BANCO_LOGOS.find(l => l.re.test(txt));
   if (logo) return `<img src="${logo.img}" alt="" style="width:${tam}px;height:${tam}px;border-radius:${Math.round(tam/4)}px;object-fit:cover;display:block;flex-shrink:0">`;
   return BANCO_ICONS[(b && b.tipo)] || '🏦';
 }
@@ -16069,7 +16247,7 @@ function imprimirExtratoBanco(orientacao) {
     body { font-family: 'Segoe UI', Arial, sans-serif; color: #1f2937; margin: 0; font-size: 11px; }
     .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:12px; border-bottom:3px solid #ea580c; }
     .emp { display:flex; align-items:center; gap:12px; }
-    .emp img { width:56px; height:56px; border-radius:12px; }
+    .emp img { height:52px; width:auto; display:block; }
     .emp-nome { font-size:17px; font-weight:800; }
     .emp-sub { font-size:10px; color:#78716c; margin-top:2px; }
     .tit { text-align:right; }
@@ -16099,7 +16277,7 @@ function imprimirExtratoBanco(orientacao) {
 
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>Extrato ${esc(b ? b.nome : 'Contas')} ${mesStr}-${ano}</title><style>${css}</style></head><body>
     <div class="top">
-      <div class="emp"><img src="${LOGO_EMPRESA_CAIXA}" alt=""><div><div class="emp-nome">${esc(empNome)}</div><div class="emp-sub">${esc(empCnpj)}</div></div></div>
+      <div class="emp"><img src="${BRAND_LOGO_DATA_URI}" alt="C@P Consultoria"><div><div class="emp-nome">${esc(empNome)}</div><div class="emp-sub">${esc(empCnpj)}</div></div></div>
       <div class="tit"><h1>EXTRATO DE CONTA</h1><div>Emitido em ${emitido}</div></div>
     </div>
     <div class="conta">
@@ -17021,7 +17199,7 @@ function imprimirFluxoDiario() {
   const subtitulo = `${meses[mes]} / ${ano} · Base: ${baseTxt} · Conta: ${contaTxt}`;
   const fullHtml = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8">'
     + '<title>Fluxo de Caixa Diário — C@P Consultoria</title><style>' + css + '</style></head><body>'
-    + '<div class="header"><div><div class="logo">C@P</div><div class="titulo">Fluxo de Caixa Diário</div>'
+    + '<div class="header"><div>' + '<img src="' + BRAND_LOGO_DATA_URI + '" alt="C@P Consultoria" style="height:52px;width:auto;display:block;margin-bottom:6px" />' + '<div class="titulo">Fluxo de Caixa Diário</div>'
     + '<div style="font-size:10px;color:#78716c;margin-top:2px">' + subtitulo + '</div></div>'
     + '<div class="meta"><div>Emitido em: ' + dataHoje + '</div><div>Sistema de Gestão C@P Consultoria</div></div></div>'
     + (kpiEl ? '<div class="kpis">' + kpiEl.innerHTML.replace(/class="card kpi"/g, 'class="kpi"') + '</div>' : '')
@@ -18005,10 +18183,9 @@ async function initApp() {
   aplicarFiltrosPeriodoPadrao();
   carregarPrefsDre();
   atualizarBotoesOrientacaoDre();
-  ajustarNomenclaturaDre()
-    .catch(e => console.warn('[DRE] ajuste de nomenclatura:', e))
-    .then(() => ajustarDreV3())
-    .catch(e => console.warn('[DRE] ajustes v3:', e));
+  // Os ajustes antigos (ajustarNomenclaturaDre / ajustarDreV3) eram da
+  // instalação anterior e ficam desligados: a TORR usa a estrutura abaixo.
+  aplicarEstruturaTorr().catch(e => console.warn('[TORR] estrutura padrão:', e));
   populateFornSelects();
   populateProdSelects();
   populateClienteSelects();
@@ -18325,7 +18502,7 @@ function imprimirPagina(pagina) {
 
   const fullHtml = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>' + titulo + ' — C@P Consultoria</title>'
     + '<style>' + css + '</style></head><body>'
-    + '<div class="header"><div><div class="logo">C@P</div><div class="titulo">' + titulo + '</div></div>'
+    + '<div class="header"><div>' + '<img src="' + BRAND_LOGO_DATA_URI + '" alt="C@P Consultoria" style="height:52px;width:auto;display:block;margin-bottom:6px" />' + '<div class="titulo">' + titulo + '</div></div>'
     + '<div class="meta"><div>Emitido em: ' + dataHoje + '</div><div>Sistema de Gestão C@P Consultoria</div></div></div>'
     + (kpiHtml ? '<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">' + kpiHtml + '</div>' : '')
     + tableHtml
@@ -18371,6 +18548,8 @@ function imprimirDre() {
   cloneTable.querySelectorAll('[onclick]').forEach(el => el.removeAttribute('onclick'));
   cloneTable.querySelectorAll('.dre-cell-click').forEach(el => el.classList.remove('dre-cell-click'));
   cloneTable.querySelectorAll('.dre-cat-toggle').forEach(el => el.remove());
+  // O PDF sai igual à tela: categorias recolhidas não aparecem
+  cloneTable.querySelectorAll('tr').forEach(tr => { if (tr.style.display === 'none') tr.remove(); });
   // No PDF os valores saem sem o "R$ " (indicado no cabeçalho) — cada coluna
   // fica bem mais estreita e a tabela cabe maior na folha.
   cloneTable.querySelectorAll('td:not(:first-child), th:not(:first-child)').forEach(td => {
@@ -18437,7 +18616,7 @@ function imprimirDre() {
 
   const fullHtml = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>' + titulo + ' — C@P Consultoria</title>'
     + '<style>' + css + '</style></head><body><div class="folha">'
-    + '<div class="header"><div><div class="logo">C@P</div><div class="titulo">' + titulo + '</div></div>'
+    + '<div class="header"><div>' + '<img src="' + BRAND_LOGO_DATA_URI + '" alt="C@P Consultoria" style="height:52px;width:auto;display:block;margin-bottom:6px" />' + '<div class="titulo">' + titulo + '</div></div>'
     + '<div class="meta"><div>Emitido em: ' + dataHoje + '</div><div>Valores em R$ · ' + (retrato ? 'Retrato' : 'Paisagem') + '</div><div>Sistema de Gestão C@P Consultoria</div></div></div>'
     + '<div class="tabela-area">' + tableHtml + '</div>'
     + '<div class="footer">C@P Consultoria — Sistema de Gestão de Compras &middot; Gerado em ' + dataHoje + '</div>'
@@ -19813,7 +19992,7 @@ function gerarPdfDia() {
 
   const fullHtml = '<!DOCTYPE html><html lang="pt-BR"><head><meta charset="UTF-8"><title>' + titulo + ' — C@P Consultoria</title>'
     + '<style>' + css + '</style></head><body>'
-    + '<div class="header"><div><div class="logo">C@P</div><div class="titulo">' + titulo + '</div></div>'
+    + '<div class="header"><div>' + '<img src="' + BRAND_LOGO_DATA_URI + '" alt="C@P Consultoria" style="height:52px;width:auto;display:block;margin-bottom:6px" />' + '<div class="titulo">' + titulo + '</div></div>'
     + '<div class="meta"><div>Emitido em: ' + dataHoje + '</div><div>' + _pdfDiaAgrupamentoLabel(pagina) + '</div></div></div>'
     + '<table><thead>' + thead + '</thead><tbody>' + corpo + '</tbody></table>'
     + '<div class="footer">C@P Consultoria — Sistema de Gestão &middot; Gerado em ' + dataHoje + '</div>'
@@ -23481,7 +23660,7 @@ function _relAbrir(o) {
     body { font-family: 'Segoe UI', Arial, sans-serif; color: #1f2937; margin: 0; font-size: ${paisagem ? 10.5 : 10}px; }
     .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding-bottom:12px; border-bottom:3px solid #ea580c; }
     .emp { display:flex; align-items:center; gap:12px; }
-    .emp img { width:52px; height:52px; border-radius:12px; }
+    .emp img { height:52px; width:auto; display:block; }
     .emp-nome { font-size:16px; font-weight:800; }
     .emp-sub { font-size:10px; color:#78716c; margin-top:2px; }
     .tit { text-align:right; }
@@ -23511,7 +23690,7 @@ function _relAbrir(o) {
     h3 { font-size:11px; text-transform:uppercase; letter-spacing:.6px; margin:18px 0 6px; color:#57534e; }
     .rod { margin-top:16px; padding-top:8px; border-top:1px solid #e7e5e4; font-size:9px; color:#a8a29e; display:flex; justify-content:space-between; }`;
   const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  const logo = (typeof LOGO_EMPRESA_CAIXA !== 'undefined') ? `<img src="${LOGO_EMPRESA_CAIXA}" alt="">` : '';
+  const logo = (typeof BRAND_LOGO_DATA_URI !== 'undefined' && BRAND_LOGO_DATA_URI) ? `<img src="${BRAND_LOGO_DATA_URI}" alt="C@P Consultoria">` : '';
   const html = `<!doctype html><html><head><meta charset="utf-8"><title>${esc(o.docTitulo || o.titulo)}</title><style>${css}</style></head><body>
     <div class="top">
       <div class="emp">${logo}<div><div class="emp-nome">${esc(emp.nome)}</div><div class="emp-sub">${esc(emp.cnpj)}</div></div></div>
