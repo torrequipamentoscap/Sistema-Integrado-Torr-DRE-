@@ -1804,6 +1804,148 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
 }
 @media (prefers-reduced-motion: reduce) { #login-screen *, #login-screen *::before, #login-screen *::after { animation: none !important; } .tx-in { opacity: 1; transform: none; } }
 
+
+/* ══════════ BANCOS / CAIXAS — layout profissional (cxb-*) ══════════ */
+#page-bancos .cxb-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+#page-bancos .cxb-head .page-title { font-family:'Sora',sans-serif; font-size:22px; font-weight:800; letter-spacing:-.4px; color:#1c1917; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+.cxb-pill { display:inline-flex; align-items:center; gap:6px; padding:3px 11px; border-radius:20px; font-size:11.5px; font-weight:700; background:#f5f5f4; color:#57534e; border:1px solid #e7e5e4; font-family:'Plus Jakarta Sans',sans-serif; letter-spacing:0; }
+.cxb-pill i { width:7px; height:7px; border-radius:50%; background:#16a34a; box-shadow:0 0 0 3px rgba(22,163,74,.15); }
+.cxb-head-acts { display:flex; gap:8px; flex-wrap:wrap; }
+.cxb-btn-sec { display:inline-flex; align-items:center; gap:7px; height:40px; padding:0 16px; border-radius:10px; border:1px solid #e7e5e4; background:#fff; color:#1c1917; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; transition:.15s; }
+.cxb-btn-sec:hover { border-color:#ea580c; color:#ea580c; box-shadow:0 4px 14px rgba(234,88,12,.10); }
+.cxb-btn-sec svg { width:16px; height:16px; }
+
+/* Hero */
+.cxb-hero { position:relative; overflow:hidden; border-radius:18px; padding:24px 26px 20px; margin-bottom:18px; color:#fff;
+  background:radial-gradient(900px 260px at 100% 0%, rgba(234,88,12,.35), transparent 60%), linear-gradient(125deg,#1c1917 0%,#292524 55%,#3b2418 100%);
+  box-shadow:0 10px 30px rgba(28,25,23,.18); }
+.cxb-hero-grid { display:grid; grid-template-columns:minmax(240px,1.1fr) minmax(260px,1.6fr) minmax(220px,1fr); gap:26px; align-items:stretch; }
+.cxb-hero-lbl { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#a8a29e; }
+.cxb-hero-val { font-family:'Sora',sans-serif; font-size:34px; font-weight:800; letter-spacing:-1px; line-height:1.1; margin-top:6px; white-space:nowrap; }
+.cxb-hero-val { color:#4ade80; }
+.cxb-hero-val.neg { color:#f87171; }
+.cxb-hero-var { display:inline-flex; align-items:center; gap:6px; margin-top:10px; font-size:12px; font-weight:700; padding:4px 10px; border-radius:20px; background:rgba(255,255,255,.08); }
+.cxb-hero-var.up { color:#86efac; } .cxb-hero-var.down { color:#fca5a5; }
+.cxb-hero-var span { color:#a8a29e; font-weight:600; }
+.cxb-hero-meta { font-size:11.5px; color:#a8a29e; margin-top:12px; }
+.cxb-hero-chart { display:flex; flex-direction:column; min-width:0; }
+.cxb-hero-chart .cxb-hero-lbl { display:flex; justify-content:space-between; }
+.cxb-hero-chart .cxb-hero-lbl b { color:#fff; font-weight:700; letter-spacing:0; text-transform:none; font-size:11.5px; font-family:'DM Mono',monospace; }
+.cxb-hero-chart svg { width:100%; height:96px; margin-top:8px; overflow:visible; }
+.cxb-hero-axis { display:flex; justify-content:space-between; font-size:10px; color:#78716c; margin-top:4px; }
+.cxb-hero-stats { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.cxb-hs { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:12px; padding:10px 12px; cursor:default; }
+.cxb-hs.click { cursor:pointer; transition:.15s; } .cxb-hs.click:hover { background:rgba(255,255,255,.12); }
+.cxb-hs span { display:block; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:#a8a29e; }
+.cxb-hs b { display:block; font-family:'DM Mono',monospace; font-size:15px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cxb-hs b.pos { color:#86efac; } .cxb-hs b.neg { color:#fca5a5; }
+.cxb-comp { margin-top:20px; padding-top:16px; border-top:1px solid rgba(255,255,255,.08); }
+.cxb-comp-bar { display:flex; height:10px; border-radius:6px; overflow:hidden; background:rgba(255,255,255,.08); gap:2px; }
+.cxb-comp-bar i { display:block; height:100%; min-width:3px; transition:opacity .15s; }
+.cxb-comp-leg { display:flex; flex-wrap:wrap; gap:6px 18px; margin-top:10px; font-size:11.5px; color:#d6d3d1; }
+.cxb-comp-leg span { display:inline-flex; align-items:center; gap:7px; white-space:nowrap; }
+.cxb-comp-leg em { width:9px; height:9px; border-radius:3px; display:inline-block; }
+.cxb-comp-leg b { font-family:'DM Mono',monospace; color:#fff; font-weight:500; }
+@media (max-width:1100px) { .cxb-hero-grid { grid-template-columns:1fr 1fr; } .cxb-hero-chart { grid-column:1 / -1; order:3; } }
+@media (max-width:640px) { .cxb-hero-grid { grid-template-columns:1fr; } .cxb-hero-val { font-size:28px; } .cxb-hero { padding:18px; } }
+
+/* Seção */
+.cxb-sec-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin:6px 2px 12px; flex-wrap:wrap; }
+.cxb-sec-tit { font-family:'Sora',sans-serif; font-size:15px; font-weight:800; color:#1c1917; display:flex; align-items:center; gap:8px; }
+.cxb-sec-tit small { font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:600; color:#a8a29e; }
+.cxb-sec-sub { font-size:12px; color:#a8a29e; }
+
+/* Cards de conta */
+#bancos-list.cxb-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px; margin-bottom:22px; }
+.cxb-card { position:relative; background:#fff; border:1px solid #ece9e5; border-radius:16px; padding:18px 18px 14px; display:flex; flex-direction:column; gap:12px; transition:box-shadow .18s, transform .18s, border-color .18s; overflow:hidden; }
+.cxb-card::before { content:''; position:absolute; left:0; right:0; top:0; height:3px; background:var(--bk,#ea580c); }
+.cxb-card:hover { box-shadow:0 12px 28px rgba(28,25,23,.08); transform:translateY(-2px); border-color:#e7e5e4; }
+.cxb-card.neg { background:linear-gradient(180deg,#fff 0%,#fff 70%,#fef2f2 100%); }
+.cxb-top { display:flex; align-items:center; gap:12px; min-width:0; }
+.cxb-logo { width:46px; height:46px; border-radius:13px; background:#f5f4f2; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0; overflow:hidden; box-shadow:inset 0 0 0 1px rgba(0,0,0,.04); }
+.cxb-id { min-width:0; flex:1; cursor:pointer; }
+.cxb-nome { font-size:14.5px; font-weight:800; color:#1c1917; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cxb-sub { font-size:11.5px; color:#a8a29e; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-family:'DM Mono',monospace; }
+.cxb-tipo { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; padding:4px 9px; border-radius:20px; background:#f5f5f4; color:#57534e; white-space:nowrap; flex-shrink:0; }
+.cxb-saldo-box { display:flex; align-items:flex-end; justify-content:space-between; gap:10px; cursor:pointer; }
+.cxb-saldo-lbl { font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; color:#a8a29e; }
+.cxb-saldo { font-family:'Sora',sans-serif; font-size:24px; font-weight:800; letter-spacing:-.6px; color:#1c1917; line-height:1.15; margin-top:3px; white-space:nowrap; }
+.cxb-saldo.neg { color:#dc2626; }
+.cxb-spark { width:110px; height:40px; flex-shrink:0; overflow:visible; }
+.cxb-share { display:flex; align-items:center; gap:10px; font-size:11px; color:#78716c; }
+.cxb-share-bar { flex:1; height:6px; background:#f5f5f4; border-radius:4px; overflow:hidden; }
+.cxb-share-bar i { display:block; height:100%; background:var(--bk,#ea580c); border-radius:4px; }
+.cxb-share b { font-family:'DM Mono',monospace; color:#44403c; font-weight:500; }
+.cxb-mes { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.cxb-mes div { background:#faf9f7; border-radius:10px; padding:8px 10px; cursor:pointer; transition:.12s; border:1px solid transparent; }
+.cxb-mes div:hover { border-color:#fed7aa; background:#fff7ed; }
+.cxb-mes span { display:block; font-size:10px; font-weight:700; color:#a8a29e; text-transform:uppercase; letter-spacing:.5px; }
+.cxb-mes b { display:block; font-family:'DM Mono',monospace; font-size:13px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cxb-mes .e b { color:#16a34a; } .cxb-mes .s b { color:#dc2626; }
+.cxb-foot { display:flex; align-items:center; justify-content:space-between; gap:8px; padding-top:10px; border-top:1px dashed #ece9e5; }
+.cxb-ult { font-size:11px; color:#a8a29e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cxb-ult b { color:#57534e; font-weight:600; }
+.cxb-acts { display:flex; gap:4px; flex-shrink:0; }
+.cxb-ic { width:32px; height:32px; border-radius:9px; border:1px solid #ece9e5; background:#fff; color:#78716c; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition:.12s; padding:0; }
+.cxb-ic svg { width:15px; height:15px; }
+.cxb-ic:hover { background:#1c1917; border-color:#1c1917; color:#fff; }
+.cxb-ic.del:hover { background:#dc2626; border-color:#dc2626; }
+.cxb-add { border:1.5px dashed #d6d3d1; border-radius:16px; background:transparent; min-height:200px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#a8a29e; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit; transition:.15s; }
+.cxb-add:hover { border-color:#ea580c; color:#ea580c; background:#fff7ed; }
+.cxb-add span { width:44px; height:44px; border-radius:50%; background:#f5f5f4; display:flex; align-items:center; justify-content:center; font-size:22px; transition:.15s; }
+.cxb-add:hover span { background:#ea580c; color:#fff; }
+.cxb-vazio { grid-column:1 / -1; text-align:center; padding:46px 20px; background:#fff; border:1.5px dashed #d6d3d1; border-radius:16px; color:#78716c; }
+.cxb-vazio div { font-size:34px; margin-bottom:6px; }
+
+/* Fluxo diário */
+.cxb-fluxo { padding:22px 24px; }
+.cxb-fluxo-head { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:16px; }
+.cxb-filtros { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.cxb-sel { display:inline-flex; align-items:center; gap:6px; background:#fff; border:1px solid #e7e5e4; border-radius:10px; padding:0 4px 0 12px; height:38px; }
+.cxb-sel label { font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#a8a29e; margin:0; white-space:nowrap; }
+.cxb-sel select { border:none !important; background:transparent !important; box-shadow:none !important; height:36px; padding:0 6px !important; font-size:13px; font-weight:600; color:#1c1917; outline:none; min-width:0; width:auto; }
+.cxb-seg { display:inline-flex; background:#f5f5f4; border-radius:10px; padding:3px; gap:2px; }
+.cxb-seg button { border:none; background:none; height:32px; padding:0 12px; border-radius:8px; font-size:12px; font-weight:700; color:#78716c; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.cxb-seg button.on { background:#fff; color:#1c1917; box-shadow:0 1px 3px rgba(0,0,0,.08); }
+.cxb-seg button:hover:not(.on) { color:#1c1917; }
+#page-bancos .fb-logo-destaque { padding:8px 16px 8px 8px; box-shadow:none; }
+#page-bancos .fb-logo-img { width:48px; height:48px; border-radius:12px; }
+#page-bancos .fb-logo-nome { font-size:15px; }
+.cxb-kpis { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; margin-bottom:16px; }
+.cxb-kpi { background:#fff; border:1px solid #ece9e5; border-radius:12px; padding:12px 14px; position:relative; overflow:hidden; cursor:pointer; transition:.15s; }
+.cxb-kpi:hover { border-color:#fdba74; box-shadow:0 6px 16px rgba(234,88,12,.08); }
+.cxb-kpi::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:var(--c,#a8a29e); }
+.cxb-kpi span { display:block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#a8a29e; }
+.cxb-kpi b { display:block; font-family:'DM Mono',monospace; font-size:17px; margin-top:4px; color:var(--c,#1c1917); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cxb-kpi small { display:block; font-size:10.5px; color:#a8a29e; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.cxb-kpi.dest { background:linear-gradient(135deg,#fff 0%,#fff7ed 100%); border-color:#fed7aa; }
+@media (max-width:1000px) { .cxb-kpis { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+.cxb-chart-box { position:relative; height:240px; margin-bottom:16px; background:#fff; border:1px solid #ece9e5; border-radius:12px; padding:12px 12px 6px; }
+.cxb-tab-wrap { max-height:520px; overflow-y:auto; border:1px solid #ece9e5; border-radius:12px; }
+.cxb-tab { width:100%; border-collapse:separate; border-spacing:0; font-size:13px; }
+.cxb-tab thead th { position:sticky; top:0; z-index:1; background:#faf9f7; text-align:right; font-size:10.5px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; color:#78716c; padding:10px 14px; border-bottom:1px solid #ece9e5; }
+.cxb-tab thead th:first-child { text-align:left; }
+.cxb-tab td { padding:9px 14px; text-align:right; border-bottom:1px solid #f5f5f4; font-family:'DM Mono',monospace; font-size:12.5px; white-space:nowrap; color:#1c1917; }
+.cxb-tab td:first-child { text-align:left; font-family:'Plus Jakarta Sans',sans-serif; }
+.cxb-tab tbody tr:hover td { background:#fffaf5; }
+.cxb-dia { display:inline-flex; align-items:center; gap:10px; }
+.cxb-dia-n { width:32px; height:32px; border-radius:9px; background:#f5f5f4; display:inline-flex; align-items:center; justify-content:center; font-family:'DM Mono',monospace; font-weight:700; font-size:12.5px; color:#1c1917; }
+.cxb-dia-w { font-size:11.5px; color:#a8a29e; font-weight:600; width:28px; }
+.cxb-tab tr.fds .cxb-dia-n { background:#fafaf9; color:#a8a29e; }
+.cxb-tab tr.fut td { color:#d6d3d1; }
+.cxb-tab tr.fut .cxb-dia-n { background:#fafaf9; color:#d6d3d1; }
+.cxb-tab tr.hoje td { background:#fff7ed !important; }
+.cxb-tab tr.hoje .cxb-dia-n { background:#ea580c; color:#fff; }
+.cxb-hoje-tag { font-size:9px; font-weight:800; letter-spacing:.5px; background:#ea580c; color:#fff; padding:2px 7px; border-radius:20px; }
+.cxb-tab .z { color:#e7e5e4; }
+.cxb-tab .pos { color:#16a34a; } .cxb-tab .neg { color:#dc2626; }
+.cxb-tab td.saldo { font-weight:700; }
+.cxb-tab tfoot td { position:sticky; bottom:0; background:#1c1917; color:#fff; font-weight:700; border:none; padding:11px 14px; }
+.cxb-tab tfoot td:first-child { font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:.6px; }
+.cxb-tab tfoot .pos { color:#86efac; } .cxb-tab tfoot .neg { color:#fca5a5; }
+
+.cxb-chq { font-size:11px; font-weight:600; color:#ea580c; margin-top:3px; }
+.cxb-ic.chq:hover { background:#ea580c; border-color:#ea580c; }
 </style>
 </head>
 <body>
@@ -3223,11 +3365,17 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
 
     <!-- ══ BANCOS / CAIXAS ══ -->
     <div class="page" id="page-bancos">
-      <div class="page-header">
-        <div><div class="page-title">Bancos / Caixas</div><div class="page-sub" style="margin-bottom:0">Cadastro de contas bancárias e caixas</div></div>
-        <button class="btn-novo" id="btn-novo-bnk" onclick="toggleFormPanel('form-bnk',this)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo
-        </button>
+      <div class="cxb-head">
+        <div>
+          <div class="page-title">Bancos / Caixas <span class="cxb-pill"><i></i>Posição de caixa</span></div>
+          <div class="page-sub" style="margin-bottom:0">Saldos das contas bancárias e caixas e movimentação diária</div>
+        </div>
+        <div class="cxb-head-acts">
+          <button class="cxb-btn-sec" onclick="abrirNovaTransferencia()" title="Transferir entre contas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 7h13l-4-4"/><path d="M17 17H4l4 4"/></svg> Transferir</button>
+          <button class="btn-novo" id="btn-novo-bnk" onclick="toggleFormPanel('form-bnk',this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Nova conta
+          </button>
+        </div>
       </div>
       <div class="form-panel" id="form-bnk" style="margin-bottom:0">
       <div class="card">
@@ -3256,21 +3404,33 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
         </div>
       </div>
       </div><!-- /form-panel bnk -->
-      <div class="card" style="margin-top:16px">
-        <div class="card-title">Contas Cadastradas</div>
-        <div id="bancos-list">
-          <div class="empty-state" style="padding:24px">Nenhuma conta cadastrada.</div>
-        </div>
+
+      <!-- Resumo consolidado -->
+      <div class="cxb-hero" id="cxb-hero"></div>
+
+      <!-- Contas -->
+      <div class="cxb-sec-head">
+        <div class="cxb-sec-tit">Contas <small id="cxb-qtd"></small></div>
+        <div class="cxb-sec-sub">Clique na conta para ver o fluxo diário dela</div>
+      </div>
+      <div id="bancos-list" class="cxb-grid">
+        <div class="cxb-vazio"><div>🏦</div>Nenhuma conta cadastrada.</div>
       </div>
 
-      <div class="card" style="margin-top:16px">
-        <div class="card-title">Fluxo de Caixa Diário</div>
-        <div class="page-sub" style="margin-bottom:14px">Entradas e saídas efetivamente pagas/recebidas, dia a dia (01 a 31)</div>
-        <div class="filter-row" style="margin-bottom:16px">
-          <div class="form-group" style="min-width:240px"><label>Conta</label>
+      <!-- Fluxo de caixa diário -->
+      <div class="card cxb-fluxo" id="cxb-fluxo-card">
+        <div class="cxb-fluxo-head">
+          <div>
+            <div class="cxb-sec-tit" style="margin-bottom:2px">Fluxo de caixa diário</div>
+            <div class="cxb-sec-sub">Entradas e saídas efetivamente pagas/recebidas, dia a dia</div>
+          </div>
+          <div id="fb-logo-destaque" class="fb-logo-destaque" style="display:none"></div>
+        </div>
+        <div class="cxb-filtros" style="margin-bottom:16px">
+          <div class="cxb-sel"><label for="fb-banco">Conta</label>
             <select id="fb-banco" onchange="renderFluxoBancoDiario()"><option value="">Todas as Contas</option></select>
           </div>
-          <div class="form-group"><label>Mês</label>
+          <div class="cxb-sel"><label for="fb-mes">Mês</label>
             <select id="fb-mes" onchange="renderFluxoBancoDiario()">
               <option value="1">Janeiro</option><option value="2">Fevereiro</option><option value="3">Março</option>
               <option value="4">Abril</option><option value="5">Maio</option><option value="6">Junho</option>
@@ -3278,16 +3438,17 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
               <option value="10">Outubro</option><option value="11">Novembro</option><option value="12">Dezembro</option>
             </select>
           </div>
-          <div class="form-group"><label>Ano</label>
+          <div class="cxb-sel"><label for="fb-ano">Ano</label>
             <select id="fb-ano" onchange="renderFluxoBancoDiario()"></select>
           </div>
-          <div class="form-group"><label>Imprimir / PDF</label>
-            <div style="display:flex;gap:6px">
-              <button class="btn btn-secondary btn-sm" style="padding:10px 12px" onclick="imprimirExtratoBanco('retrato')" title="Extrato em folha A4 retrato">🖨 Retrato</button>
-              <button class="btn btn-secondary btn-sm" style="padding:10px 12px" onclick="imprimirExtratoBanco('paisagem')" title="Extrato em folha A4 paisagem">🖨 Paisagem</button>
-            </div>
+          <div class="cxb-seg" id="fb-modo" title="Quais dias mostrar na tabela">
+            <button type="button" data-m="todos" class="on" onclick="bkFluxoModo('todos')">Todos os dias</button>
+            <button type="button" data-m="mov" onclick="bkFluxoModo('mov')">Com movimento</button>
           </div>
-          <div id="fb-logo-destaque" class="fb-logo-destaque" style="display:none"></div>
+          <div style="margin-left:auto;display:flex;gap:6px">
+            <button class="cxb-btn-sec" style="height:38px" onclick="imprimirExtratoBanco('retrato')" title="Extrato em folha A4 retrato">🖨 Retrato</button>
+            <button class="cxb-btn-sec" style="height:38px" onclick="imprimirExtratoBanco('paisagem')" title="Extrato em folha A4 paisagem">🖨 Paisagem</button>
+          </div>
         </div>
         <div id="fluxo-banco-wrap"></div>
       </div>
@@ -16316,6 +16477,12 @@ function debugBancoSaldo(nomeBanco) {
 // ══════════════════════════════════════════════════════════
 // FLUXO DE CAIXA DIÁRIO DOS BANCOS (dia 01 a 31, estático)
 // ══════════════════════════════════════════════════════════
+var _fbModo = 'todos';
+function bkFluxoModo(m) {
+  _fbModo = m;
+  document.querySelectorAll('#fb-modo button').forEach(b => b.classList.toggle('on', b.dataset.m === m));
+  renderFluxoBancoDiario();
+}
 function renderFluxoBancoDiario() {
   const wrap = document.getElementById('fluxo-banco-wrap');
   if (!wrap) return;
@@ -16328,26 +16495,24 @@ function renderFluxoBancoDiario() {
   const ano = parseInt(anoEl.value) || new Date().getFullYear();
   const bancoSel = bancoEl ? bancoEl.value : '';
 
-  // Logo grande da conta selecionada, ao lado dos filtros
+  // Logo da conta selecionada, no cabeçalho do card
   const logoBox = document.getElementById('fb-logo-destaque');
   if (logoBox) {
     const bSel = bancoSel ? db.bancos.find(x => x.id === bancoSel) : null;
     if (bSel) {
-      const ic = bancoIconeHtml(bSel, 72);
-      logoBox.innerHTML = `<div class="fb-logo-img">${ic.startsWith('<img') ? ic : `<span style="font-size:44px;line-height:1">${ic}</span>`}</div>
-        <div><div class="fb-logo-nome">${bSel.nome}</div><div class="fb-logo-sub">${[bSel.tipo, bSel.banco, bSel.agencia ? 'Ag: ' + bSel.agencia : '', bSel.conta ? 'CC: ' + bSel.conta : ''].filter(Boolean).join(' · ')}</div></div>`;
+      const ic = bancoIconeHtml(bSel, 48);
+      logoBox.innerHTML = `<div class="fb-logo-img">${ic.startsWith('<img') ? ic : `<span style="font-size:28px;line-height:1">${ic}</span>`}</div>
+        <div><div class="fb-logo-nome">${_bkEsc(bSel.nome)}</div><div class="fb-logo-sub">${[bSel.tipo, bSel.banco, bSel.agencia ? 'Ag: ' + bSel.agencia : '', bSel.conta ? 'CC: ' + bSel.conta : ''].filter(Boolean).map(_bkEsc).join(' · ')}</div></div>`;
       logoBox.style.display = 'flex';
     } else { logoBox.style.display = 'none'; logoBox.innerHTML = ''; }
   }
 
   if (!db.bancos.length) {
-    wrap.innerHTML = '<div class="empty-state" style="padding:24px">Cadastre uma conta bancária para visualizar o fluxo de caixa.</div>';
+    wrap.innerHTML = '<div class="cxb-vazio"><div>📊</div>Cadastre uma conta bancária para visualizar o fluxo de caixa.</div>';
     return;
   }
 
-  // Conjunto de contas consideradas: a selecionada, ou todas as cadastradas
   const bancoIds = bancoSel ? [bancoSel] : db.bancos.map(b => b.id);
-
   const diasNoMes = new Date(ano, mes, 0).getDate();
   const mesStr = String(mes).padStart(2, '0');
   const primeiroDiaMes = `${ano}-${mesStr}-01`;
@@ -16372,24 +16537,24 @@ function renderFluxoBancoDiario() {
     if (!e.caixa || !e.data || e.data >= primeiroDiaMes || !bancoIds.includes(e.banco)) return;
     saldoAcum += (Number(e.caixa) || 0);
   });
+  const saldoInicialMes = saldoAcum;
 
   // Movimentação real (paga/recebida) de cada dia do mês selecionado
   const porDia = {};
-  for (let d = 1; d <= 31; d++) porDia[d] = { entrada: 0, saida: 0 };
-
+  for (let d = 1; d <= 31; d++) porDia[d] = { entrada: 0, saida: 0, n: 0 };
   getParcelas(true).forEach(p => {
     if (!bancoIds.includes(p.banco) || !p.dtpago) return;
     const parts = p.dtpago.split('-');
     if (parseInt(parts[0]) !== ano || parseInt(parts[1]) !== mes) return;
     const d = parseInt(parts[2]);
-    if (porDia[d]) porDia[d].saida += (p.valParc || 0);
+    if (porDia[d]) { porDia[d].saida += (p.valParc || 0); porDia[d].n++; }
   });
   getParcelasReceber(true).forEach(p => {
     if (!bancoIds.includes(p.banco) || !p.dtrecebido) return;
     const parts = p.dtrecebido.split('-');
     if (parseInt(parts[0]) !== ano || parseInt(parts[1]) !== mes) return;
     const d = parseInt(parts[2]);
-    if (porDia[d]) porDia[d].entrada += (p.valParc || 0);
+    if (porDia[d]) { porDia[d].entrada += (p.valParc || 0); porDia[d].n++; }
   });
   (db.transferencias || []).forEach(t => {
     if (!t.data) return;
@@ -16397,8 +16562,8 @@ function renderFluxoBancoDiario() {
     if (parseInt(parts[0]) !== ano || parseInt(parts[1]) !== mes) return;
     const d = parseInt(parts[2]);
     if (!porDia[d]) return;
-    if (bancoIds.includes(t.origem)) porDia[d].saida += (t.valor || 0);
-    if (bancoIds.includes(t.destino)) porDia[d].entrada += (t.valor || 0);
+    if (bancoIds.includes(t.origem)) { porDia[d].saida += (t.valor || 0); porDia[d].n++; }
+    if (bancoIds.includes(t.destino)) { porDia[d].entrada += (t.valor || 0); porDia[d].n++; }
   });
   (db.conta_terceiros || []).forEach(e => {
     if (!e.caixa || !e.data || !bancoIds.includes(e.banco)) return;
@@ -16407,49 +16572,64 @@ function renderFluxoBancoDiario() {
     const d = parseInt(parts[2]);
     if (!porDia[d]) return;
     if (e.caixa > 0) porDia[d].entrada += Number(e.caixa); else porDia[d].saida += -Number(e.caixa);
+    porDia[d].n++;
   });
 
   const todayStr = today();
-  let totalEntradas = 0, totalSaidas = 0;
+  const semana = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+  let totalEntradas = 0, totalSaidas = 0, diasMov = 0;
+  let maiorE = { v: 0, d: null }, maiorS = { v: 0, d: null }, menorSaldo = { v: Infinity, d: null };
   const linhas = [];
-  for (let d = 1; d <= 31; d++) {
-    if (d > diasNoMes) {
-      linhas.push(`<tr class="fb-dia-inexistente"><td>${d}</td><td colspan="4" style="text-align:center">—</td></tr>`);
-      continue;
-    }
-    const { entrada, saida } = porDia[d];
+  for (let d = 1; d <= diasNoMes; d++) {
+    const { entrada, saida, n } = porDia[d];
     saldoAcum += (entrada - saida);
     totalEntradas += entrada; totalSaidas += saida;
+    const temMov = entrada > 0.005 || saida > 0.005;
+    if (temMov) diasMov++;
+    if (entrada > maiorE.v) maiorE = { v: entrada, d };
+    if (saida > maiorS.v) maiorS = { v: saida, d };
     const dateStr = `${ano}-${mesStr}-${String(d).padStart(2, '0')}`;
+    const futuro = dateStr > todayStr;
+    if (!futuro && saldoAcum < menorSaldo.v) menorSaldo = { v: saldoAcum, d };
+    if (_fbModo === 'mov' && !temMov) continue;
+    const dow = new Date(ano, mes - 1, d).getDay();
     const isToday = dateStr === todayStr;
-    const saldoCls = saldoAcum >= 0 ? 'dfc-val-pos' : 'dfc-val-neg';
-    linhas.push(`<tr class="${isToday ? 'fb-dia-hoje' : ''}">
-      <td style="font-weight:700">${String(d).padStart(2, '0')}${isToday ? ' <span style="font-size:9px;color:#ea580c">HOJE</span>' : ''}</td>
-      <td>${entrada > 0.005 ? `<span class="dfc-val-pos">+ ${fmtBRL(entrada)}</span>` : '<span class="dfc-val-zero">—</span>'}</td>
-      <td>${saida > 0.005 ? `<span class="dfc-val-neg">− ${fmtBRL(saida)}</span>` : '<span class="dfc-val-zero">—</span>'}</td>
-      <td>${Math.abs(entrada - saida) > 0.005 ? fmtDreVal(entrada - saida) : '<span class="dfc-val-zero">—</span>'}</td>
-      <td class="${saldoCls}" style="font-weight:700">${fmtBRL(saldoAcum)}</td>
+    const cls = [isToday ? 'hoje' : '', futuro ? 'fut' : '', (dow === 0 || dow === 6) ? 'fds' : ''].filter(Boolean).join(' ');
+    const diaHtml = `<span class="cxb-dia"><span class="cxb-dia-n">${String(d).padStart(2, '0')}</span><span class="cxb-dia-w">${semana[dow]}</span>${isToday ? '<span class="cxb-hoje-tag">HOJE</span>' : ''}${n ? `<span style="font-size:11px;color:#a8a29e">${n} lanç.</span>` : ''}</span>`;
+    linhas.push(`<tr class="${cls}">
+      <td>${diaHtml}</td>
+      <td>${entrada > 0.005 ? `<span class="pos">+ ${fmtBRL(entrada)}</span>` : '<span class="z">—</span>'}</td>
+      <td>${saida > 0.005 ? `<span class="neg">− ${fmtBRL(saida)}</span>` : '<span class="z">—</span>'}</td>
+      <td>${Math.abs(entrada - saida) > 0.005 ? `<span class="${entrada - saida >= 0 ? 'pos' : 'neg'}">${bkSinal(entrada - saida)}</span>` : '<span class="z">—</span>'}</td>
+      <td class="saldo ${futuro ? '' : (saldoAcum >= 0 ? '' : 'neg')}">${fmtBRL(saldoAcum)}</td>
     </tr>`);
   }
+  if (!linhas.length) linhas.push(`<tr><td colspan="5" style="text-align:center;padding:30px;color:#a8a29e;font-family:inherit">Nenhuma movimentação neste mês.</td></tr>`);
 
-  const nomeBanco = bancoSel ? getBancoNome(bancoSel) : 'Todas as Contas';
-  const saldoMesCor = (totalEntradas - totalSaidas) >= 0 ? '#166534' : '#dc2626';
-  const saldoFinalCor = saldoAcum >= 0 ? '#166534' : '#dc2626';
+  const nomeBanco = bancoSel ? getBancoNome(bancoSel) : 'Todas as contas';
+  const res = totalEntradas - totalSaidas;
+  const kpi = (lbl, val, sub, cor, onclick, dest) =>
+    `<div class="cxb-kpi ${dest ? 'dest' : ''}" style="--c:${cor};cursor:default"><span>${lbl}</span><b>${val}</b><small>${sub}</small></div>`;
 
   wrap.innerHTML = `
-    <div class="grid4" style="margin-bottom:16px;">
-      <div class="card kpi"><div class="kpi-val" style="color:#166534">+ ${fmtBRL(totalEntradas)}</div><div class="kpi-lbl">Entradas no mês</div></div>
-      <div class="card kpi"><div class="kpi-val" style="color:#dc2626">− ${fmtBRL(totalSaidas)}</div><div class="kpi-lbl">Saídas no mês</div></div>
-      <div class="card kpi"><div class="kpi-val" style="color:${saldoMesCor}">${fmtDreVal(totalEntradas - totalSaidas)}</div><div class="kpi-lbl">Saldo do mês</div></div>
-      <div class="card kpi"><div class="kpi-val" style="color:${saldoFinalCor}">${fmtBRL(saldoAcum)}</div><div class="kpi-lbl">Saldo final — ${nomeBanco}</div></div>
+    <div class="cxb-kpis">
+      ${kpi('Saldo inicial', fmtBRL(saldoInicialMes), `em 01/${mesStr}/${ano}`, '#57534e', 'bxFluxoMes()')}
+      ${kpi('Entradas', '+ ' + fmtBRL(totalEntradas), maiorE.d ? `maior: dia ${String(maiorE.d).padStart(2, '0')} · ${fmtBRL(maiorE.v)}` : 'sem entradas', '#16a34a', "bxFluxoMes('ET')")}
+      ${kpi('Saídas', '− ' + fmtBRL(totalSaidas), maiorS.d ? `maior: dia ${String(maiorS.d).padStart(2, '0')} · ${fmtBRL(maiorS.v)}` : 'sem saídas', '#dc2626', "bxFluxoMes('ST')")}
+      ${kpi('Resultado do mês', bkSinal(res), `${diasMov} dia${diasMov === 1 ? '' : 's'} com movimento`, res >= 0 ? '#16a34a' : '#dc2626', 'bxFluxoMes()')}
+      ${kpi('Saldo final', fmtBRL(saldoAcum), menorSaldo.d ? `mínimo: ${fmtBRL(menorSaldo.v)} (dia ${String(menorSaldo.d).padStart(2, '0')})` : _bkEsc(nomeBanco), saldoAcum >= 0 ? '#ea580c' : '#dc2626', 'bxFluxoMes()', true)}
     </div>
-    <div style="max-height:520px;overflow-y:auto">
-      <table class="dfc-table" style="width:100%">
-        <thead><tr><th style="text-align:left">Dia</th><th>Entradas</th><th>Saídas</th><th>Saldo do Dia</th><th>Saldo Acumulado</th></tr></thead>
+    <div class="cxb-tab-wrap">
+      <table class="cxb-tab">
+        <thead><tr><th>Dia</th><th>Entradas</th><th>Saídas</th><th>Saldo do dia</th><th>Saldo acumulado</th></tr></thead>
         <tbody>${linhas.join('')}</tbody>
+        <tfoot><tr><td>Total do mês · ${_bkEsc(nomeBanco)}</td><td class="pos">+ ${fmtBRL(totalEntradas)}</td><td class="neg">− ${fmtBRL(totalSaidas)}</td><td class="${res >= 0 ? 'pos' : 'neg'}">${bkSinal(res)}</td><td>${fmtBRL(saldoAcum)}</td></tr></tfoot>
       </table>
     </div>`;
+
+  if (charts['fb-chart']) { try { charts['fb-chart'].destroy(); } catch (e) {} delete charts['fb-chart']; }
 }
+
 
 // ── Extrato da conta para impressão / PDF (retrato ou paisagem) ──────────
 function imprimirExtratoBanco(orientacao) {
@@ -16604,38 +16784,218 @@ function clearBanco() {
   document.getElementById('bnk-tipo').value='';
   document.getElementById('bnk-saldo').value='';
 }
+const _bkEsc = v => v == null ? '' : String(v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+const bkSinal = v => (v >= 0 ? '+ ' : '− ') + fmtBRL(Math.abs(v));
+// ── Bancos / Caixas — helpers do layout novo ─────────────────────────────
+const BK_CORES = ['#ea580c','#2563eb','#16a34a','#9333ea','#0d9488','#d97706','#db2777','#0891b2','#65a30d','#57534e'];
+function bkCorConta(id) {
+  const i = db.bancos.findIndex(b => b.id === id);
+  return BK_CORES[(i < 0 ? 0 : i) % BK_CORES.length];
+}
+// Todos os movimentos efetivados por conta: { banco, data, valor(+/-) }
+// (mesmos critérios de getBancoSaldo e do Fluxo de Caixa Diário)
+function bkMovimentos() {
+  const m = [];
+  getParcelasReceber(true).forEach(p => { if (p.banco && p.dtrecebido) m.push({ banco: p.banco, data: p.dtrecebido, valor: (p.valParc || 0) }); });
+  getParcelas(true).forEach(p => { if (p.banco && p.dtpago) m.push({ banco: p.banco, data: p.dtpago, valor: -(p.valParc || 0) }); });
+  (db.transferencias || []).forEach(t => {
+    if (!t.data) return;
+    if (t.origem) m.push({ banco: t.origem, data: t.data, valor: -(t.valor || 0), transf: true });
+    if (t.destino) m.push({ banco: t.destino, data: t.data, valor: (t.valor || 0), transf: true });
+  });
+  // Movimentos de caixa com clientes/fornecedores (excedente de cheques, devoluções etc.)
+  (db.conta_terceiros || []).forEach(e => { if (e.banco && e.caixa && e.data) m.push({ banco: e.banco, data: e.data, valor: Number(e.caixa) || 0 }); });
+  return m;
+}
+const bkAddDias = (d, n) => { const x = new Date(d + 'T12:00:00'); x.setDate(x.getDate() + n); return `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,'0')}-${String(x.getDate()).padStart(2,'0')}`; };
+// Série de saldo diário (fim do dia) de um conjunto de contas, de 'ini' a 'fim'
+function bkSerieSaldo(movs, bancoIds, ini, fim) {
+  const set = new Set(bancoIds);
+  let s = db.bancos.filter(b => set.has(b.id)).reduce((t, b) => t + (b.saldo_inicial || 0) + (typeof chqSaldoInicialDoBanco === 'function' ? chqSaldoInicialDoBanco(b.id) : 0), 0);
+  const porDia = {};
+  movs.forEach(mv => {
+    if (!set.has(mv.banco)) return;
+    if (mv.data < ini) s += mv.valor;
+    else if (mv.data <= fim) porDia[mv.data] = (porDia[mv.data] || 0) + mv.valor;
+  });
+  const out = [];
+  for (let d = ini; d <= fim; d = bkAddDias(d, 1)) { s += (porDia[d] || 0); out.push(Math.round(s * 100) / 100); }
+  return out;
+}
+let _bkSparkN = 0;
+function bkSparkSVG(vals, cor, w, h, cls) {
+  if (!vals.length) return '';
+  const min = Math.min(...vals), max = Math.max(...vals), rg = (max - min) || 1;
+  const pad = 3, step = vals.length > 1 ? (w / (vals.length - 1)) : w;
+  const pts = vals.map((v, i) => [i * step, pad + (h - pad * 2) * (1 - (v - min) / rg)]);
+  const line = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const area = line + ` L ${w} ${h} L 0 ${h} Z`;
+  const id = 'bkg' + (++_bkSparkN);
+  const last = pts[pts.length - 1];
+  const zeroY = (min < 0 && max > 0) ? (pad + (h - pad * 2) * (1 - (0 - min) / rg)).toFixed(1) : null;
+  return `<svg class="${cls || 'cxb-spark'}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${cor}" stop-opacity=".28"/><stop offset="1" stop-color="${cor}" stop-opacity="0"/></linearGradient></defs>
+    ${zeroY ? `<line x1="0" x2="${w}" y1="${zeroY}" y2="${zeroY}" stroke="#a8a29e" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke" opacity=".6"/>` : ''}
+    <path d="${area}" fill="url(#${id})"/>
+    <path d="${line}" fill="none" stroke="${cor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="2.8" fill="${cor}"/>
+  </svg>`;
+}
+// Gráfico do resumo: linha e área verdes acima de zero e vermelhas abaixo de zero
+function bkSparkSinal(vals, w, h) {
+  if (!vals.length) return '';
+  const VERDE = '#22c55e', VERM = '#ef4444', pad = 4;
+  const min = Math.min(...vals), max = Math.max(...vals);
+  const rg = (max - min) || 1, step = vals.length > 1 ? w / (vals.length - 1) : w;
+  const y = v => pad + (h - pad * 2) * (1 - (v - min) / rg);
+  const line = vals.map((v, i) => (i ? 'L' : 'M') + (i * step).toFixed(1) + ' ' + y(v).toFixed(1)).join(' ');
+  const z = min >= 0 ? h + 1 : max <= 0 ? -1 : y(0);
+  const zf = Math.max(0, Math.min(1, z / h)), zb = Math.min(h, Math.max(0, z)).toFixed(1);
+  const id = 'bks' + (++_bkSparkN);
+  const zero = (min < 0 && max > 0) ? `<line x1="0" x2="${w}" y1="${z.toFixed(1)}" y2="${z.toFixed(1)}" stroke="#a8a29e" stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke" opacity=".55"/>` : '';
+  return `<svg class="cxb-hero-spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="${id}l" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${h}"><stop offset="${zf}" stop-color="${VERDE}"/><stop offset="${zf}" stop-color="${VERM}"/></linearGradient>
+      <linearGradient id="${id}a" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="${h}">
+        <stop offset="0" stop-color="${VERDE}" stop-opacity=".30"/><stop offset="${zf}" stop-color="${VERDE}" stop-opacity=".04"/>
+        <stop offset="${zf}" stop-color="${VERM}" stop-opacity=".04"/><stop offset="1" stop-color="${VERM}" stop-opacity=".30"/></linearGradient>
+    </defs>${zero}
+    <path d="${line} L ${w} ${zb} L 0 ${zb} Z" fill="url(#${id}a)"/>
+    <path d="${line}" fill="none" stroke="url(#${id}l)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+  </svg>`;
+}
+const BK_IC = {
+  ext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+  flx: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-7"/></svg>',
+  edt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>',
+  chq: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 14h5M15 11h3"/></svg>',
+  del: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="M19 6l-1 14H6L5 6"/></svg>'
+};
+// Abre o fluxo diário já filtrado na conta e rola até ele
+function bkVerFluxo(id) {
+  const sel = document.getElementById('fb-banco');
+  if (sel) sel.value = id || '';
+  renderFluxoBancoDiario();
+  const c = document.getElementById('cxb-fluxo-card');
+  if (c) c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function renderBancos() {
   const el = document.getElementById('bancos-list');
+  if (!el) return;
+  el.classList.add('cxb-grid');
+  const hero = document.getElementById('cxb-hero');
+  const qtd = document.getElementById('cxb-qtd');
+  const btnAdd = `<button type="button" class="cxb-add" onclick="toggleFormPanel('form-bnk',document.getElementById('btn-novo-bnk'))"><span>+</span>Adicionar conta</button>`;
   if (!db.bancos.length) {
-    el.innerHTML='<div class="empty-state" style="padding:24px">Nenhuma conta cadastrada.</div>'; return;
+    el.innerHTML = `<div class="cxb-vazio"><div>🏦</div><b>Nenhuma conta cadastrada.</b><br><span style="font-size:12px;color:#a8a29e">Cadastre seus bancos e caixas para acompanhar saldos e fluxo.</span></div>`;
+    if (hero) hero.style.display = 'none';
+    if (qtd) qtd.textContent = '';
+    return;
   }
-  el.innerHTML = db.bancos.map(b => {
+  _bkSparkN = 0;
+  const hoje = today();
+  const iniMes = hoje.slice(0, 8) + '01';
+  const ini30 = bkAddDias(hoje, -29), ini90 = bkAddDias(hoje, -89);
+  const movs = bkMovimentos();
+
+  // Dados por conta
+  const contas = db.bancos.map(b => {
     const saldo = getBancoSaldo(b);
-    const saldoCls = saldo >= 0 ? 'saldo-positivo' : 'saldo-negativo';
-    const icon = bancoIconeHtml(b, 42);
-    return `<div class="banco-card">
-      <div class="banco-icon">${icon}</div>
-      <div class="banco-info">
-        <div class="banco-nome">${b.nome}</div>
-        <div class="banco-tipo">
-          <span class="badge-tipo-banco">${b.tipo}</span>
-          ${b.banco ? ' · '+b.banco : ''}
-          ${b.agencia ? ' · Ag: '+b.agencia : ''}
-          ${b.conta ? ' · CC: '+b.conta : ''}
+    const meus = movs.filter(m => m.banco === b.id);
+    let ent = 0, sai = 0, ult = '';
+    meus.forEach(m => {
+      if (m.data > ult) ult = m.data;
+      if (m.data >= iniMes && m.data <= hoje) { if (m.valor >= 0) ent += m.valor; else sai -= m.valor; }
+    });
+    return { b, saldo, ent, sai, ult, cor: bkCorConta(b.id), serie: bkSerieSaldo(meus, [b.id], ini30, hoje) };
+  });
+  const total = contas.reduce((s, c) => s + c.saldo, 0);
+  const somaPos = contas.reduce((s, c) => s + Math.max(0, c.saldo), 0);
+
+  // Consolidado (transferências entre contas próprias não contam como entrada/saída)
+  let entMes = 0, saiMes = 0;
+  movs.forEach(m => { if (m.transf || m.data < iniMes || m.data > hoje) return; if (m.valor >= 0) entMes += m.valor; else saiMes -= m.valor; });
+  const serie90 = bkSerieSaldo(movs, db.bancos.map(b => b.id), ini90, hoje);
+  const saldo30 = serie90[serie90.length - 31] != null ? serie90[serie90.length - 31] : serie90[0];
+  const var30 = total - saldo30;
+  const minS = Math.min(...serie90), maxS = Math.max(...serie90);
+  const negs = contas.filter(c => c.saldo < -0.005);
+  const mesNome = `${mesesAbr[parseInt(hoje.slice(5, 7))]}/${hoje.slice(2, 4)}`;
+
+  if (hero) {
+    hero.style.display = '';
+    const comp = contas.filter(c => c.saldo > 0.005).sort((a, b) => b.saldo - a.saldo);
+    hero.innerHTML = `
+      <div class="cxb-hero-grid">
+        <div>
+          <div class="cxb-hero-lbl">Saldo consolidado</div>
+          <div class="cxb-hero-val ${total < 0 ? 'neg' : ''}">${fmtBRL(total)}</div>
+          <div class="cxb-hero-var ${var30 >= 0 ? 'up' : 'down'}">${var30 >= 0 ? '▲' : '▼'} ${fmtBRL(Math.abs(var30))} <span>em 30 dias</span></div>
+          <div class="cxb-hero-meta">Posição em ${fmtDate(hoje)} · ${db.bancos.length} conta${db.bancos.length === 1 ? '' : 's'}</div>
+        </div>
+        <div class="cxb-hero-chart">
+          <div class="cxb-hero-lbl"><span>Evolução do saldo · 90 dias</span><b><span style="color:${minS < 0 ? '#fca5a5' : '#86efac'}">${fmtBRL(minS)}</span> – <span style="color:${maxS < 0 ? '#fca5a5' : '#86efac'}">${fmtBRL(maxS)}</span></b></div>
+          ${bkSparkSinal(serie90, 400, 96)}
+          <div class="cxb-hero-axis"><span>${fmtDate(ini90).slice(0, 5)}</span><span>${fmtDate(bkAddDias(hoje, -45)).slice(0, 5)}</span><span>Hoje</span></div>
+        </div>
+        <div class="cxb-hero-stats">
+          <div class="cxb-hs click" onclick="bkVerFluxo('')" title="Ver fluxo do mês"><span>Entradas ${mesNome}</span><b class="pos">+ ${fmtBRL(entMes)}</b></div>
+          <div class="cxb-hs click" onclick="bkVerFluxo('')" title="Ver fluxo do mês"><span>Saídas ${mesNome}</span><b class="neg">− ${fmtBRL(saiMes)}</b></div>
+          <div class="cxb-hs"><span>Resultado ${mesNome}</span><b class="${entMes - saiMes >= 0 ? 'pos' : 'neg'}">${bkSinal(entMes - saiMes)}</b></div>
+          <div class="cxb-hs" title="${negs.map(c => _bkEsc(c.b.nome)).join(', ')}"><span>Contas no negativo</span><b class="${negs.length ? 'neg' : 'pos'}">${negs.length ? negs.length + ' · ' + fmtBRL(negs.reduce((s, c) => s + c.saldo, 0)) : 'Nenhuma ✓'}</b></div>
         </div>
       </div>
-      <div class="banco-saldo">
-        <div class="banco-saldo-val ${saldoCls}">${fmtBRL(saldo)}</div>
-        <div class="banco-saldo-lbl">Saldo estimado</div>
-        ${(typeof chqSaldoInicialDoBanco === 'function' && chqSaldoInicialDoBanco(b.id) > 0) ? `<div class="banco-saldo-lbl" style="color:#ea580c">inclui ${fmtBRL(chqSaldoInicialDoBanco(b.id))} de cheques (saldo inicial)</div>` : ''}
+      ${comp.length ? `<div class="cxb-comp">
+        <div class="cxb-hero-lbl" style="margin-bottom:8px">Onde está o dinheiro</div>
+        <div class="cxb-comp-bar">${comp.map(c => `<i style="width:${(c.saldo / somaPos * 100).toFixed(2)}%;background:${c.cor}" title="${_bkEsc(c.b.nome)}: ${fmtBRL(c.saldo)}"></i>`).join('')}</div>
+        <div class="cxb-comp-leg">${comp.map(c => `<span><em style="background:${c.cor}"></em>${_bkEsc(c.b.nome)} <b>${(c.saldo / somaPos * 100).toFixed(1)}%</b></span>`).join('')}</div>
+      </div>` : ''}`;
+  }
+  if (qtd) qtd.textContent = `· ${db.bancos.length} cadastrada${db.bancos.length === 1 ? '' : 's'}`;
+
+  el.innerHTML = contas.map(c => {
+    const b = c.b, id = _bkEsc(b.id);
+    const ic = bancoIconeHtml(b, 46);
+    const custodia = typeof _bancoEhCustodia === 'function' && _bancoEhCustodia(b);
+    const chqIni = typeof chqSaldoInicialDoBanco === 'function' ? chqSaldoInicialDoBanco(b.id) : 0;
+    const verChq = custodia && typeof abrirChequesDoBanco === 'function';
+    const sub = [b.banco, b.agencia ? 'Ag ' + b.agencia : '', b.conta ? 'CC ' + b.conta : ''].filter(Boolean).map(_bkEsc).join(' · ') || (_bkEsc(b.obs) || '—');
+    const pct = somaPos > 0 && c.saldo > 0 ? c.saldo / somaPos * 100 : 0;
+    const dias = c.ult ? diffDias(c.ult, hoje) : null;
+    const ultTxt = c.ult ? `<b>${fmtDate(c.ult)}</b> · ${dias === 0 ? 'hoje' : dias === 1 ? 'ontem' : 'há ' + dias + ' dias'}` : 'sem movimentação';
+    return `<div class="cxb-card ${c.saldo < -0.005 ? 'neg' : ''}" style="--bk:${c.cor}">
+      <div class="cxb-top">
+        <div class="cxb-logo">${ic}</div>
+        <div class="cxb-id" onclick="bkVerFluxo('${id}')" title="Ver o fluxo diário desta conta">
+          <div class="cxb-nome">${_bkEsc(b.nome)}</div>
+          <div class="cxb-sub">${sub}</div>
+        </div>
+        <span class="cxb-tipo">${_bkEsc(b.tipo || 'Conta')}</span>
       </div>
-      <div class="actions" style="margin-left:8px">
-        ${(typeof _bancoEhCustodia === 'function' && _bancoEhCustodia(b)) ? `<button class="btn btn-primary btn-sm" onclick="abrirChequesSaldoInicial('${b.id}')" title="Lançar cheques que já estavam em mãos">🧾 Cheques</button>` : ''}
-        <button class="btn btn-secondary btn-sm" onclick="editBanco('${b.id}')">Editar</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteBanco('${b.id}')">Excluir</button>
+      <div class="cxb-saldo-box" onclick="${verChq ? `abrirChequesDoBanco('${id}')` : `bkVerFluxo('${id}')`}" title="${verChq ? 'Ver os cheques que compõem este saldo' : 'Ver o fluxo diário desta conta'}">
+        <div style="min-width:0">
+          <div class="cxb-saldo-lbl">Saldo atual</div>
+          <div class="cxb-saldo ${c.saldo < -0.005 ? 'neg' : ''}">${fmtBRL(c.saldo)}</div>${chqIni > 0 ? `<div class="cxb-chq">inclui ${fmtBRL(chqIni)} de cheques (saldo inicial)</div>` : ''}
+        </div>
+        ${bkSparkSVG(c.serie, c.saldo < -0.005 ? '#dc2626' : c.cor, 110, 40)}
+      </div>
+      <div class="cxb-share"><div class="cxb-share-bar"><i style="width:${pct.toFixed(1)}%"></i></div><b>${pct.toFixed(1)}%</b> do total</div>
+      <div class="cxb-mes">
+        <div class="e" onclick="bkVerFluxo('${id}')" title="Ver no fluxo diário"><span>Entradas ${mesNome}</span><b>+ ${fmtBRL(c.ent)}</b></div>
+        <div class="s" onclick="bkVerFluxo('${id}')" title="Ver no fluxo diário"><span>Saídas ${mesNome}</span><b>− ${fmtBRL(c.sai)}</b></div>
+      </div>
+      <div class="cxb-foot">
+        <div class="cxb-ult">Último mov.: ${ultTxt}</div>
+        <div class="cxb-acts">
+          ${custodia ? `<button class="cxb-ic chq" onclick="abrirChequesSaldoInicial('${id}')" title="Lançar cheques que já estavam em mãos">${BK_IC.chq}</button>` : ''}
+          <button class="cxb-ic" onclick="bkVerFluxo('${id}')" title="Fluxo diário desta conta">${BK_IC.flx}</button>
+          <button class="cxb-ic" onclick="editBanco('${id}')" title="Editar">${BK_IC.edt}</button>
+          <button class="cxb-ic del" onclick="deleteBanco('${id}')" title="Excluir">${BK_IC.del}</button>
+        </div>
       </div>
     </div>`;
-  }).join('');
+  }).join('') + btnAdd;
 }
 function editBanco(id) {
   const b = db.bancos.find(x=>x.id===id); if(!b) return;
