@@ -2329,6 +2329,7 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
         <div><div class="page-title">Lançamentos — Contas a Pagar</div><div class="page-sub" style="margin-bottom:0">Registro de compras e despesas</div></div>
         <button class="btn-pdf" onclick="imprimirPagina('lancamentos')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> PDF</button>
         <button class="btn btn-secondary" onclick="abrirModalCategoriaMassa('lancamentos')">🏷️ Categoria em Massa</button>
+        <button class="btn btn-secondary" onclick="nfeEscolherArquivo()" title="Importa o XML da NF-e de compra e preenche o lançamento">🧾 Importar XML NF-e</button>
         <button class="btn btn-secondary" onclick="abrirModalImport('pagar')">📥 Importar Extrato</button>
         <button class="btn-novo" id="btn-novo-lanc" onclick="abrirModalLanc()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Novo
@@ -2397,7 +2398,7 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
 
     <!-- ══ A PAGAR ══ -->
     <div class="page" id="page-apagar">
-      <div class="page-header"><div><div class="page-title">Contas a Pagar</div><div class="page-sub" style="margin-bottom:0">Parcelas em aberto e próximas do vencimento</div></div><div style="display:flex;gap:8px"><button class="btn-pdf" onclick="abrirPdfDia('apagar')" style="background:#0f766e">📅 PDF por Dia</button><button class="btn-pdf" onclick="imprimirPagina('apagar')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> PDF</button></div></div>
+      <div class="page-header"><div><div class="page-title">Contas a Pagar</div><div class="page-sub" style="margin-bottom:0">Parcelas em aberto e próximas do vencimento</div></div><div style="display:flex;gap:8px"><button class="btn btn-secondary" onclick="nfeEscolherArquivo()" title="Importa o XML da NF-e de compra e preenche o lançamento">🧾 Importar XML NF-e</button><button class="btn-pdf" onclick="abrirPdfDia('apagar')" style="background:#0f766e">📅 PDF por Dia</button><button class="btn-pdf" onclick="imprimirPagina('apagar')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> PDF</button></div></div>
       <div id="apagar-kpis" class="grid4 kpis-compact" style="margin-bottom:20px;"></div>
       <div class="card card-compact">
         <div class="card-title">Filtros</div>
@@ -3994,8 +3995,11 @@ body.menu-oculto .sidebar { transform:translateX(-248px); }
   <div class="modal" style="width:720px;">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
       <div class="modal-title" style="margin-bottom:0;">📦 Novo Lançamento — Pagamento</div>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="nfeEscolherArquivo()" style="margin-left:auto;margin-right:8px" title="Preencher a partir do XML da NF-e (ou arraste o arquivo .xml para esta janela)">🧾 Importar XML NF-e</button>
       <button onclick="fecharModalLanc()" style="background:none;border:none;cursor:pointer;color:#a8a29e;font-size:22px;line-height:1;padding:4px;" title="Fechar">✕</button>
     </div>
+    <input type="file" id="nfe-xml-file" accept=".xml,text/xml,application/xml" multiple style="display:none" onchange="nfeLerArquivos(this.files)" />
+    <div id="l-nfe-info" style="display:none;margin-bottom:16px;padding:10px 14px;background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #2563eb;border-radius:8px;font-size:12.5px;color:#1e3a8a;line-height:1.5"></div>
     <div class="grid3">
       <div class="form-group" style="display:none"><label>Empresa *</label><select id="l-empresa" class="sel-empresa"><option value="">Selecione...</option></select></div>
     </div>
@@ -6520,7 +6524,7 @@ function abrirModalLanc() {
   populateDreCatSelects();
   openModal('modal-novo-lanc');
 }
-function fecharModalLanc() { clearLancamento(); closeModal('modal-novo-lanc'); }
+function fecharModalLanc() { clearLancamento(); closeModal('modal-novo-lanc'); _nfeAoCancelar(); }
 
 function abrirModalLancReceber() {
   populateClienteSelects();
@@ -7793,6 +7797,7 @@ async function saveLancamento() {
   db.lancamentos.push(lanc);
   if (_pend) await aplicarComposicao('pagar', lanc, Array.from({ length: parcelas }, (_, i) => i + 1), _pend);
   clearLancamento(); closeModal('modal-novo-lanc'); renderLancamentos(); renderApagar(); renderPagas(); populateYearSelects();
+  _nfeAposSalvar();
 }
 
 function clearLancamento() {
@@ -7826,7 +7831,423 @@ function clearLancamento() {
   const parcelasEl = document.getElementById('l-parcelas');
   if (parcelasEl) parcelasEl.disabled = false;
   toggleContaFixaVigencia();
+  _nfeLimparInfo();
 }
+// ══════════════════════════════════════════════════════════════════
+// IMPORTAR XML DA NF-e → LANÇAMENTO DE CONTAS A PAGAR
+// Lê o XML (nfeProc ou NFe, modelo 55/65), localiza ou cadastra o
+// fornecedor pelo CNPJ/CPF do emitente e abre o "Novo Lançamento —
+// Pagamento" já preenchido: data de emissão, nº da NF, valor, parcelas
+// (duplicatas com vencimento e valor), previsão de pagamento, forma de
+// pagamento, item, categoria sugerida e observações com chave de acesso
+// e itens da nota. Nada é gravado em lançamentos até o usuário clicar
+// em "Salvar Lançamento". Aceita vários arquivos: ao salvar um, abre o
+// próximo da fila. Também dá para arrastar o .xml para dentro do modal.
+// ══════════════════════════════════════════════════════════════════
+var _nfeFila = [];
+var _nfeAtual = null;
+
+// Códigos tPag da NF-e → formas de pagamento do sistema
+const NFE_TPAG = {
+  '01': 'Dinheiro', '02': 'Cheque', '03': 'Cartão de Crédito', '04': 'Cartão de Débito',
+  '05': 'Crédito Loja', '10': 'Vale Alimentação', '11': 'Vale Refeição', '12': 'Vale Presente',
+  '13': 'Vale Combustível', '15': 'Boleto', '16': 'Transferência', '17': 'PIX',
+  '18': 'Transferência', '19': 'Programa de fidelidade', '20': 'PIX', '90': '', '99': ''
+};
+
+function nfeEscolherArquivo() {
+  const inp = document.getElementById('nfe-xml-file');
+  if (!inp) return;
+  inp.value = '';
+  inp.click();
+}
+
+function _nfeSoDigitos(s) { return (s || '').toString().replace(/\D/g, ''); }
+function _nfeFmtDoc(d) {
+  d = _nfeSoDigitos(d);
+  if (d.length === 14) return d.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, '$1.$2.$3/$4-$5');
+  if (d.length === 11) return d.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+  return d;
+}
+function _nfeFmtFone(f) {
+  f = _nfeSoDigitos(f);
+  if (f.length === 10) return f.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+  if (f.length === 11) return f.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+  return f;
+}
+function _nfeEsc(s) {
+  return (s == null ? '' : String(s)).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+function _nfeNum(v) { const n = parseFloat(v); return isNaN(n) ? 0 : n; }
+function _nfeR2(v) { return Math.round((v || 0) * 100) / 100; }
+function _nfeData(s) { return (s || '').toString().slice(0, 10); } // "2026-11-23T11:24:00-03:00" → "2026-11-23"
+function _nfeDataBR(iso) { if (!iso) return ''; const [a, m, d] = iso.split('-'); return `${d}/${m}/${a}`; }
+
+// Lê o arquivo respeitando o encoding declarado no XML (UTF-8 ou ISO-8859-1)
+function _nfeLerTexto(file) {
+  return new Promise((resolve, reject) => {
+    const fr = new FileReader();
+    fr.onerror = () => reject(fr.error);
+    fr.onload = () => {
+      const buf = fr.result;
+      const cabeca = new TextDecoder('latin1').decode(new Uint8Array(buf, 0, Math.min(200, buf.byteLength)));
+      const m = cabeca.match(/encoding=["']([\w-]+)["']/i);
+      let enc = m ? m[1].toLowerCase() : 'utf-8';
+      try { resolve(new TextDecoder(enc).decode(buf)); }
+      catch (e) { resolve(new TextDecoder('utf-8').decode(buf)); }
+    };
+    fr.readAsArrayBuffer(file);
+  });
+}
+
+// Converte o XML em um objeto simples com tudo o que o lançamento precisa
+function nfeParseXml(texto) {
+  const doc = new DOMParser().parseFromString(texto.replace(/^﻿/, ''), 'application/xml');
+  if (doc.getElementsByTagName('parsererror').length) throw new Error('O arquivo não é um XML válido.');
+  const um = (pai, tag) => pai ? pai.getElementsByTagNameNS('*', tag)[0] || null : null;
+  const todos = (pai, tag) => pai ? Array.from(pai.getElementsByTagNameNS('*', tag)) : [];
+  // Texto de um filho DIRETO (evita pegar, p.ex., o CNPJ do autXML no lugar do emitente)
+  const filho = (pai, tag) => {
+    if (!pai) return '';
+    for (const c of pai.children) if (c.localName === tag) return (c.textContent || '').trim();
+    return '';
+  };
+  const txt = (pai, tag) => { const e = um(pai, tag); return e ? (e.textContent || '').trim() : ''; };
+
+  const inf = um(doc, 'infNFe');
+  if (!inf) {
+    if (um(doc, 'infCte')) throw new Error('Este XML é de um CT-e (conhecimento de transporte), não de uma NF-e.');
+    if (um(doc, 'infNFSe') || um(doc, 'CompNfse') || um(doc, 'Nfse')) throw new Error('Este XML é de uma NFS-e (nota de serviço). Somente NF-e/NFC-e são aceitas aqui.');
+    throw new Error('Não encontrei os dados de uma NF-e neste XML (grupo infNFe).');
+  }
+  const ide = um(inf, 'ide'), emit = um(inf, 'emit'), dest = um(inf, 'dest');
+  const enderEmit = um(emit, 'enderEmit');
+  const tot = um(inf, 'ICMSTot');
+  const prot = um(doc, 'infProt');
+
+  const chave = (_nfeSoDigitos(inf.getAttribute('Id')) || txt(prot, 'chNFe')).slice(-44);
+  const itens = todos(inf, 'det').map(det => {
+    const prod = um(det, 'prod');
+    return {
+      n: det.getAttribute('nItem'),
+      cod: filho(prod, 'cProd'), nome: filho(prod, 'xProd'), ncm: filho(prod, 'NCM'), cfop: filho(prod, 'CFOP'),
+      un: filho(prod, 'uCom'), qtd: _nfeNum(filho(prod, 'qCom')), vun: _nfeNum(filho(prod, 'vUnCom')),
+      valor: _nfeNum(filho(prod, 'vProd'))
+    };
+  });
+  const dups = todos(inf, 'dup').map(d => ({ n: filho(d, 'nDup'), venc: _nfeData(filho(d, 'dVenc')), valor: _nfeNum(filho(d, 'vDup')) }));
+  const pags = todos(inf, 'detPag').map(p => ({ tPag: filho(p, 'tPag'), xPag: filho(p, 'xPag'), valor: _nfeNum(filho(p, 'vPag')), ind: filho(p, 'indPag') }));
+  const fat = um(inf, 'fat');
+  const transp = um(inf, 'transp');
+  const vTot = (tag) => _nfeNum(filho(tot, tag));
+
+  return {
+    chave,
+    modelo: filho(ide, 'mod'),
+    numero: filho(ide, 'nNF'),
+    serie: filho(ide, 'serie'),
+    natOp: filho(ide, 'natOp'),
+    tpNF: filho(ide, 'tpNF'),            // 0 = entrada, 1 = saída
+    finNFe: filho(ide, 'finNFe'),        // 1 normal, 2 compl., 3 ajuste, 4 devolução
+    tpAmb: filho(ide, 'tpAmb'),          // 1 produção, 2 homologação
+    emissao: _nfeData(filho(ide, 'dhEmi') || filho(ide, 'dEmi')),
+    emit: {
+      doc: filho(emit, 'CNPJ') || filho(emit, 'CPF'),
+      nome: filho(emit, 'xNome'), fantasia: filho(emit, 'xFant'), ie: filho(emit, 'IE'),
+      fone: filho(enderEmit, 'fone'),
+      endereco: enderEmit ? [filho(enderEmit, 'xLgr') + (filho(enderEmit, 'nro') ? ', ' + filho(enderEmit, 'nro') : ''),
+        filho(enderEmit, 'xBairro'), filho(enderEmit, 'xMun') + (filho(enderEmit, 'UF') ? '/' + filho(enderEmit, 'UF') : ''),
+        filho(enderEmit, 'CEP') ? 'CEP ' + filho(enderEmit, 'CEP') : ''].filter(Boolean).join(' - ') : '',
+      email: filho(emit, 'email')
+    },
+    dest: { doc: filho(dest, 'CNPJ') || filho(dest, 'CPF'), nome: filho(dest, 'xNome') },
+    itens, dups, pags,
+    fatLiq: fat ? _nfeNum(filho(fat, 'vLiq')) : 0,
+    total: {
+      nf: vTot('vNF'), prod: vTot('vProd'), frete: vTot('vFrete'), seguro: vTot('vSeg'),
+      desc: vTot('vDesc'), outros: vTot('vOutro'), ipi: vTot('vIPI'), st: vTot('vST')
+    },
+    transportadora: transp ? txt(um(transp, 'transporta'), 'xNome') : '',
+    pesoB: transp ? _nfeNum(txt(transp, 'pesoB')) : 0,
+    infCpl: txt(um(inf, 'infAdic'), 'infCpl'),
+    prot: prot ? { cStat: filho(prot, 'cStat'), motivo: filho(prot, 'xMotivo'), nProt: filho(prot, 'nProt') } : null
+  };
+}
+
+async function nfeLerArquivos(files) {
+  const lista = Array.from(files || []).filter(f => /\.xml$/i.test(f.name) || /xml/.test(f.type));
+  if (!lista.length) { if (files && files.length) alert('Selecione arquivo(s) .xml de NF-e.'); return; }
+  const lidas = [], erros = [];
+  for (const f of lista) {
+    try { const nfe = nfeParseXml(await _nfeLerTexto(f)); nfe.arquivo = f.name; lidas.push(nfe); }
+    catch (e) { erros.push(`• ${f.name}: ${e.message}`); }
+  }
+  const inp = document.getElementById('nfe-xml-file'); if (inp) inp.value = '';
+  if (erros.length) alert('⚠️ Não foi possível ler ' + (erros.length === 1 ? 'o arquivo' : erros.length + ' arquivos') + ':\n\n' + erros.join('\n'));
+  if (!lidas.length) return;
+  _nfeFila = lidas;
+  await _nfeProxima();
+}
+
+async function _nfeProxima() {
+  while (_nfeFila.length) {
+    const nfe = _nfeFila.shift();
+    const ok = await nfePreencherLancamento(nfe);
+    if (ok) return;   // modal aberto com esta nota; a próxima vem depois de salvar
+  }
+}
+
+// Chamado depois que um lançamento é salvo com sucesso
+function _nfeAposSalvar() {
+  if (_nfeFila.length) setTimeout(() => _nfeProxima(), 150);
+}
+
+function _nfeLimparInfo() {
+  _nfeAtual = null;
+  const box = document.getElementById('l-nfe-info');
+  if (box) { box.style.display = 'none'; box.innerHTML = ''; }
+}
+
+// Procura lançamento já gravado desta mesma nota
+function _nfeAcharDuplicado(nfe, fornId) {
+  const numNorm = String(nfe.numero || '').replace(/^0+/, '');
+  return (db.lancamentos || []).find(l =>
+    (nfe.chave && (l.obs || '').indexOf(nfe.chave) > -1) ||
+    (fornId && l.forn === fornId && numNorm && String(l.nf || '').replace(/\D/g, '').replace(/^0+/, '') === numNorm)
+  ) || null;
+}
+
+// Localiza o fornecedor pelo CNPJ/CPF (ou nome); se não existir, cadastra com os dados do emitente
+async function _nfeGarantirFornecedor(emit, infos) {
+  const doc = _nfeSoDigitos(emit.doc);
+  let f = doc ? (db.fornecedores || []).find(x => _nfeSoDigitos(x.cnpj) === doc) : null;
+  if (f) return f.id;
+  f = acharPorNomeExato(db.fornecedores, emit.nome) || (emit.fantasia ? acharPorNomeExato(db.fornecedores, emit.fantasia) : null);
+  if (f) {
+    // Completa o CNPJ (e telefone) que faltava no cadastro existente
+    if (!_nfeSoDigitos(f.cnpj) && doc) {
+      const patch = { cnpj: _nfeFmtDoc(doc) };
+      if (!f.tel && emit.fone) patch.tel = _nfeFmtFone(emit.fone);
+      const ok = await sbFetch('fornecedores', 'PATCH', patch, `?id=eq.${f.id}`);
+      if (ok) { Object.assign(f, patch); infos.push(`CNPJ ${patch.cnpj} adicionado ao cadastro do fornecedor "${f.nome}".`); }
+    }
+    return f.id;
+  }
+  const novo = {
+    id: uid(),
+    nome: emit.nome || emit.fantasia || ('Fornecedor ' + _nfeFmtDoc(doc)),
+    cnpj: _nfeFmtDoc(doc),
+    contato: '',
+    tel: _nfeFmtFone(emit.fone),
+    email: emit.email || '',
+    cat: '',
+    obs: [emit.fantasia && emit.fantasia !== emit.nome ? 'Fantasia: ' + emit.fantasia : '',
+          emit.ie ? 'IE: ' + emit.ie : '', emit.endereco].filter(Boolean).join(' | ') + ' [cadastrado via XML NF-e]'
+  };
+  const ok = await sbFetch('fornecedores', 'POST', novo);
+  if (!ok) { alert('❌ Não foi possível cadastrar o fornecedor "' + novo.nome + '".' + sbErroDetalhe()); return ''; }
+  db.fornecedores.push(novo);
+  if (typeof bumpDbVer === 'function') bumpDbVer();
+  if (typeof renderFornecedores === 'function') { try { renderFornecedores(); } catch (e) {} }
+  infos.push(`Fornecedor "${novo.nome}" (${novo.cnpj}) cadastrado automaticamente.`);
+  return novo.id;
+}
+
+// Item do cadastro que corresponde à nota (código do fornecedor ou nome)
+function _nfeAcharProduto(nfe, fornId) {
+  if (!nfe.itens.length || !(db.produtos || []).length) return null;
+  const achar = (it) => {
+    const porCod = it.cod ? db.produtos.filter(p => p.sku && String(p.sku).trim() === it.cod) : [];
+    return porCod.find(p => p.forn === fornId) || porCod.find(p => !p.forn) || acharPorNomeExato(db.produtos, it.nome) || null;
+  };
+  const ordenados = [...nfe.itens].sort((a, b) => b.valor - a.valor); // item principal = maior valor
+  for (const it of ordenados) { const p = achar(it); if (p) return p; }
+  return null;
+}
+
+function _nfeSetSelect(id, valor) {
+  const el = document.getElementById(id);
+  if (!el || valor == null || valor === '') return false;
+  if (![...el.options].some(o => o.value === valor)) return false;
+  el.value = valor;
+  return true;
+}
+
+function _nfeMontarObs(nfe) {
+  const L = [];
+  L.push(`NF-e ${nfe.numero}${nfe.serie ? ' série ' + nfe.serie : ''} — emissão ${_nfeDataBR(nfe.emissao)} — ${nfe.natOp}`);
+  L.push(`Chave: ${nfe.chave}`);
+  L.push(`Emitente: ${nfe.emit.nome} — ${_nfeFmtDoc(nfe.emit.doc)}`);
+  if (nfe.itens.length) {
+    L.push('Itens:');
+    const max = 15;
+    nfe.itens.slice(0, max).forEach(it => {
+      const q = it.qtd.toLocaleString('pt-BR', { maximumFractionDigits: 4 });
+      const vu = it.vun.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+      L.push(` ${it.n}) ${it.nome} — ${q} ${it.un} x R$ ${vu} = ${fmtBRL(it.valor)}`);
+    });
+    if (nfe.itens.length > max) L.push(` … e mais ${nfe.itens.length - max} item(ns)`);
+  }
+  const t = nfe.total, extras = [];
+  if (t.frete) extras.push('Frete ' + fmtBRL(t.frete));
+  if (t.seguro) extras.push('Seguro ' + fmtBRL(t.seguro));
+  if (t.ipi) extras.push('IPI ' + fmtBRL(t.ipi));
+  if (t.st) extras.push('ICMS-ST ' + fmtBRL(t.st));
+  if (t.outros) extras.push('Outras desp. ' + fmtBRL(t.outros));
+  if (t.desc) extras.push('Desconto ' + fmtBRL(t.desc));
+  if (extras.length) L.push('Produtos ' + fmtBRL(t.prod) + ' | ' + extras.join(' | ') + ' | Total NF ' + fmtBRL(t.nf));
+  if (nfe.pags.length) {
+    const formas = nfe.pags.map(p => (p.tPag === '90' ? 'Sem pagamento' : (NFE_TPAG[p.tPag] || p.xPag || ('Outros (' + p.tPag + ')'))) + ' ' + fmtBRL(p.valor));
+    L.push('Pagamento na NF: ' + formas.join(' + '));
+  }
+  if (nfe.prot && nfe.prot.nProt) L.push(`Protocolo: ${nfe.prot.nProt}`);
+  return L.join('\n');
+}
+
+// Abre o modal de novo lançamento preenchido com a nota. Retorna true se abriu.
+async function nfePreencherLancamento(nfe) {
+  const avisos = [], alertas = [], infos = [];
+
+  // ── Conferências da nota ──
+  if (nfe.modelo && nfe.modelo !== '55' && nfe.modelo !== '65') alertas.push(`Modelo de documento ${nfe.modelo} (esperado 55 — NF-e).`);
+  if (!nfe.prot) alertas.push('XML sem protocolo de autorização da SEFAZ (não é o XML "procNFe" autorizado).');
+  else if (nfe.prot.cStat && !['100', '150'].includes(nfe.prot.cStat)) alertas.push(`Situação na SEFAZ: ${nfe.prot.cStat} — ${nfe.prot.motivo}.`);
+  if (nfe.tpAmb === '2') alertas.push('Nota emitida em HOMOLOGAÇÃO (ambiente de testes), sem valor fiscal.');
+  if (nfe.finNFe === '4') alertas.push('Nota de DEVOLUÇÃO.');
+  if (nfe.finNFe === '2' || nfe.finNFe === '3') alertas.push('Nota complementar/de ajuste.');
+  const emp = (db.empresas || [])[0];
+  const docEmp = emp ? _nfeSoDigitos(emp.cnpj) : '';
+  if (docEmp && _nfeSoDigitos(nfe.emit.doc) === docEmp) alertas.push('O EMITENTE desta nota é a própria empresa — parece uma nota de venda/saída, não uma compra.');
+  else if (docEmp && nfe.dest.doc && _nfeSoDigitos(nfe.dest.doc) !== docEmp) alertas.push(`Destinatário da nota é ${nfe.dest.nome} (${_nfeFmtDoc(nfe.dest.doc)}), diferente do CNPJ da empresa.`);
+
+  if (alertas.length && !confirm(`⚠️ NF-e ${nfe.numero} — ${nfe.emit.nome}\n\n• ${alertas.join('\n• ')}\n\nDeseja importar mesmo assim?`)) return false;
+
+  // Duplicidade (antes de cadastrar qualquer coisa)
+  const docEmit = _nfeSoDigitos(nfe.emit.doc);
+  const fornExist = docEmit ? (db.fornecedores || []).find(x => _nfeSoDigitos(x.cnpj) === docEmit) : null;
+  const dup = _nfeAcharDuplicado(nfe, fornExist ? fornExist.id : '');
+  if (dup && !confirm(`⚠️ A NF-e ${nfe.numero} de ${nfe.emit.nome} já parece estar lançada:\n\n${_nfeDataBR(dup.dtcompra)} — ${fmtBRL(dup.valor)}${dup.nf ? ' — NF ' + dup.nf : ''}\n\nImportar de novo?`)) return false;
+
+  const fornId = await _nfeGarantirFornecedor(nfe.emit, infos);
+
+  // ── Valor e parcelas ──
+  let dups = nfe.dups.filter(d => d.valor > 0);
+  const somaDups = _nfeR2(dups.reduce((a, d) => a + d.valor, 0));
+  let valor = nfe.total.nf || nfe.fatLiq || somaDups;
+  if (dups.length && Math.abs(somaDups - valor) >= 0.01) {
+    avisos.push(`Soma das duplicatas (${fmtBRL(somaDups)}) difere do total da NF (${fmtBRL(valor)}); usado o valor das duplicatas.`);
+    valor = somaDups;
+  }
+  if (dups.length > 36) { avisos.push(`A nota tem ${dups.length} duplicatas; o sistema aceita até 36 — confira as parcelas.`); dups = dups.slice(0, 36); }
+  dups.sort((a, b) => (a.venc || '').localeCompare(b.venc || ''));
+
+  // ── Abre o modal limpo e preenche ──
+  clearLancamento();
+  abrirModalLanc();
+  if (typeof populateEmpresaSelects === 'function') populateEmpresaSelects();
+  // Empresa: a ativa; sem empresa ativa, a do CNPJ destinatário (ou a única cadastrada)
+  const selEmp = document.getElementById('l-empresa');
+  if (selEmp && !selEmp.value && !(typeof empresaAtual === 'function' && empresaAtual())) {
+    const ativas = (typeof empresasAtivas === 'function' ? empresasAtivas() : (db.empresas || []));
+    const docDest = _nfeSoDigitos(nfe.dest.doc);
+    const e = ativas.find(x => docDest && _nfeSoDigitos(x.cnpj) === docDest) || (ativas.length === 1 ? ativas[0] : null);
+    if (e) _nfeSetSelect('l-empresa', e.id);
+  }
+
+  document.getElementById('l-dtcompra').value = nfe.emissao || today();
+  document.getElementById('l-nf').value = nfe.numero || '';
+  document.getElementById('l-valor').value = _nfeR2(valor).toFixed(2);
+  if (fornId) _nfeSetSelect('l-forn', fornId);
+
+  const prevPag = dups.length ? dups[0].venc : (nfe.emissao || '');
+  document.getElementById('l-dtprev').value = prevPag;
+
+  // Item
+  const prod = _nfeAcharProduto(nfe, fornId);
+  if (prod) _nfeSetSelect('l-prod', prod.id);
+
+  // Categoria: a do item cadastrado; senão, a mais usada com o fornecedor ou palavra-chave
+  let cat = (prod && prod.cat) ? prod.cat : '';
+  if (!cat || !_nfeSetSelect('l-catdre', cat)) {
+    cat = sugerirCategoria('pagar', fornId, null, nfe.itens.map(i => i.nome).join(' ') + ' ' + nfe.natOp + ' ' + nfe.emit.nome);
+    _nfeSetSelect('l-catdre', cat);
+  }
+
+  // Forma de pagamento (a de maior valor na nota; ignora "90 - sem pagamento")
+  const pagsValidos = nfe.pags.filter(p => p.tPag && p.tPag !== '90').sort((a, b) => b.valor - a.valor);
+  let forma = pagsValidos.length ? (NFE_TPAG[pagsValidos[0].tPag] || pagsValidos[0].xPag || '') : '';
+  if (!forma && dups.length) forma = 'Boleto';
+  if (forma === 'Cheque') { avisos.push('A nota indica pagamento em cheque: escolha "Cheque" na forma de pagamento para informar os cheques.'); forma = ''; }
+  if (forma && !_nfeSetSelect('l-tipo-pag', forma)) {
+    const alvo = normText(forma);
+    const el = document.getElementById('l-tipo-pag');
+    const opt = el ? [...el.options].find(o => normText(o.value) === alvo) : null;
+    if (opt) el.value = opt.value;
+  }
+
+  // Parcelas (duplicatas)
+  const n = Math.max(1, dups.length);
+  document.getElementById('l-parcelas').value = String(n);
+  toggleParcelaDates('l-parcelas', 'l-parcela-dates');
+  if (n > 1) {
+    dups.forEach((d, i) => {
+      const elD = document.getElementById(`l-parcela-dates-p${i + 1}`);
+      const elV = document.getElementById(`l-parcela-dates-v${i + 1}`);
+      if (elD && d.venc) elD.value = d.venc;
+      if (elV) elV.value = _nfeR2(d.valor).toFixed(2);
+    });
+    syncTotalParcelaValores('l-parcela-dates', n, 'l-parcelas');
+  }
+
+  document.getElementById('l-obs').value = _nfeMontarObs(nfe);
+  _nfeAtual = nfe;
+
+  // ── Resumo no topo do modal ──
+  const box = document.getElementById('l-nfe-info');
+  if (box) {
+    const parcTxt = dups.length
+      ? dups.map((d, i) => `${i + 1}ª ${_nfeDataBR(d.venc)} ${fmtBRL(d.valor)}`).join(' · ')
+      : 'sem duplicatas (à vista) — vencimento = data de emissão';
+    box.innerHTML =
+      `<div style="font-weight:700;margin-bottom:2px">🧾 NF-e ${_nfeEsc(nfe.numero)}${nfe.serie ? ' / série ' + _nfeEsc(nfe.serie) : ''} — ${_nfeEsc(nfe.emit.nome)}</div>` +
+      `<div>Emissão ${_nfeDataBR(nfe.emissao)} · Total ${fmtBRL(nfe.total.nf)} · ${nfe.itens.length} item(ns)</div>` +
+      `<div>Parcelas: ${parcTxt}</div>` +
+      (infos.length ? `<div style="margin-top:6px">ℹ️ ${infos.map(_nfeEsc).join('<br>ℹ️ ')}</div>` : '') +
+      (avisos.length ? `<div style="margin-top:6px;color:#9a3412">⚠️ ${avisos.map(_nfeEsc).join('<br>⚠️ ')}</div>` : '') +
+      (_nfeFila.length ? `<div style="margin-top:6px;font-weight:600">📂 Mais ${_nfeFila.length} nota(s) na fila — abrem em seguida ao salvar.</div>` : '') +
+      `<div style="margin-top:6px;color:#475569">Confira os dados e clique em <b>Salvar Lançamento</b>.</div>`;
+    box.style.display = '';
+  }
+  return true;
+}
+
+// Cancelar com notas na fila: pergunta se segue para a próxima
+function _nfeAoCancelar() {
+  if (!_nfeFila.length) return;
+  if (confirm(`Ainda há ${_nfeFila.length} nota(s) na fila de importação.\n\nAbrir a próxima?`)) setTimeout(() => _nfeProxima(), 150);
+  else _nfeFila = [];
+}
+
+// Arrastar e soltar o XML dentro do modal de novo lançamento
+(function () {
+  const ligar = () => {
+    const ov = document.getElementById('modal-novo-lanc');
+    if (!ov || ov.dataset.nfeDrop) return;
+    ov.dataset.nfeDrop = '1';
+    const modal = ov.querySelector('.modal') || ov;
+    ov.addEventListener('dragover', e => {
+      if (e.dataTransfer && [...(e.dataTransfer.types || [])].includes('Files')) { e.preventDefault(); modal.style.outline = '3px dashed #2563eb'; }
+    });
+    ov.addEventListener('dragleave', e => { if (e.target === ov) modal.style.outline = ''; });
+    ov.addEventListener('drop', e => {
+      modal.style.outline = '';
+      const fs = e.dataTransfer && e.dataTransfer.files;
+      if (fs && fs.length && [...fs].some(f => /\.xml$/i.test(f.name))) { e.preventDefault(); nfeLerArquivos(fs); }
+    });
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ligar); else ligar();
+})();
+
 
 function renderLancamentos() {
   if (!paginaVisivel('lancamentos')) return;
